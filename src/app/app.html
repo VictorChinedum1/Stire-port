@@ -36,55 +36,35 @@
 
     <!-- Hero Section -->
     <section class="flex-1 flex flex-col items-center justify-center px-6 pt-32 pb-16 md:pt-40 md:pb-24 text-center relative z-10">
-      <div id="earlyAccessBadge" class="animate-reveal opacity-0 inline-flex items-center gap-2 px-4 py-2 border border-[var(--color-text-dim)] mb-10 backdrop-blur-sm">
+      
+      <!-- Blended Hero Background Image -->
+      <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden flex items-center justify-center">
+        <img src="https://www.image2url.com/r2/default/images/1776423974202-791a7ef3-bf8d-437a-853a-6eb8898862ce.png" 
+             alt="Hero Abstract Background" 
+             referrerpolicy="no-referrer"
+             class="w-[85%] md:w-[60%] max-w-3xl object-contain opacity-60 mix-blend-overlay">
+      </div>
+
+      <div id="earlyAccessBadge" class="animate-reveal relative z-10 opacity-0 inline-flex items-center gap-2 px-4 py-2 border border-[var(--color-text-dim)] mb-10 backdrop-blur-sm">
         <span class="w-2 h-2 bg-[var(--color-accent-cream)] animate-pulse shadow-[0_0_10px_var(--color-text-dim)]"></span>
         <span class="font-mono text-[9px] uppercase tracking-[3px] text-[var(--color-text-dim)]">Now in Early Access</span>
       </div>
       
-      <h1 class="animate-reveal opacity-0 text-5xl sm:text-6xl md:text-8xl lg:text-[130px] font-bold italic leading-[0.85] max-w-7xl mb-6 md:mb-10 drop-shadow-[4px_4px_0_rgba(0,0,0,0.1)]" style="letter-spacing: -4px;">
+      <h1 class="animate-reveal relative z-10 opacity-0 text-5xl sm:text-6xl md:text-8xl lg:text-[130px] font-bold italic leading-[0.85] max-w-7xl mb-6 md:mb-10 drop-shadow-[4px_4px_0_rgba(0,0,0,0.1)]" style="letter-spacing: -4px;">
         D<span id="firstI">i</span>gital <br class="hidden md:block"/> excellence.
       </h1>
       
-      <p class="animate-reveal opacity-0 text-base sm:text-lg md:text-xl text-[var(--color-text-dim)] max-w-2xl mb-10 md:mb-14 font-serif italic leading-relaxed">
+      <p class="animate-reveal relative z-10 opacity-0 text-base sm:text-lg md:text-xl text-[var(--color-text-dim)] max-w-2xl mb-10 md:mb-14 font-serif italic leading-relaxed">
         Stire helps modern teams create, scale, and manage their operations with unmatched precision and elegant design.
       </p>
       
-      <div class="animate-reveal opacity-0 flex flex-col sm:flex-row gap-4 items-center mb-16 md:mb-24 w-full sm:w-auto justify-center px-4 sm:px-0">
+      <div class="animate-reveal relative z-10 opacity-0 flex flex-col sm:flex-row gap-4 items-center w-full sm:w-auto justify-center px-4 sm:px-0">
         <button class="w-full sm:w-auto px-8 py-4 bg-[var(--color-accent-cream)] text-[var(--color-bg-deep)] font-mono font-bold hover:scale-105 transition-transform text-[10px] uppercase tracking-[2px] min-w-[200px] shadow-[0_0_30px_var(--color-text-dim)]">
           Start for Free
         </button>
         <button class="w-full sm:w-auto px-8 py-4 border border-[var(--color-text-dim)] text-[var(--color-accent-cream)] font-mono hover:bg-[var(--color-accent-cream)]/5 transition-colors text-[10px] uppercase tracking-[2px] min-w-[200px]">
           Book a Demo
         </button>
-      </div>
-      
-      <!-- Decorative UI Element (Glassmorphism matched to new theme) -->
-      <div class="w-full max-w-5xl mx-auto h-auto min-h-[300px] md:h-[500px] border-t border-l border-r border-[var(--color-text-dim)] bg-black/10 relative backdrop-blur-md shadow-[0_-20px_50px_rgba(0,0,0,0.2)] flex flex-col">
-        <!-- Mock UI Header -->
-        <div class="h-16 border-b border-[var(--color-text-dim)] flex items-center px-8 gap-4 bg-[var(--color-text-dim)]/5">
-          <div class="flex gap-2.5">
-            <div class="w-3.5 h-3.5 bg-[var(--color-text-dim)]"></div>
-            <div class="w-3.5 h-3.5 bg-[var(--color-text-dim)]"></div>
-            <div class="w-3.5 h-3.5 bg-[var(--color-text-dim)]"></div>
-          </div>
-        </div>
-        <!-- Mock UI Grid -->
-        <div class="p-8 grid grid-cols-1 md:grid-cols-3 gap-6 h-full text-left">
-          <div class="animate-reveal opacity-0 border border-[var(--color-text-dim)] p-8 bg-[var(--color-text-dim)]/5 space-y-5">
-            <div class="w-12 h-12 bg-[var(--color-text-dim)]/20 mb-10"></div>
-            <div class="w-1/2 h-5 bg-[var(--color-accent-cream)]/20"></div>
-            <div class="w-3/4 h-3.5 bg-[var(--color-text-dim)]/20"></div>
-            <div class="w-2/3 h-3.5 bg-[var(--color-text-dim)]/20"></div>
-          </div>
-          <div class="animate-reveal opacity-0 border border-[var(--color-text-dim)] p-8 bg-[var(--color-text-dim)]/5 space-y-5 md:col-span-2 relative overflow-hidden">
-            <div class="absolute inset-0 bg-gradient-to-br from-[var(--color-text-dim)]/10 to-transparent"></div>
-            <div class="relative w-full flex justify-between items-center mb-10">
-               <div class="w-1/3 h-8 bg-[var(--color-text-dim)]"></div>
-               <div class="w-20 h-10 border border-[var(--color-text-dim)]"></div>
-            </div>
-            <div class="relative w-full h-40 bg-[var(--color-text-dim)]/5 border border-[var(--color-text-dim)]"></div>
-          </div>
-        </div>
       </div>
     </section>
     
