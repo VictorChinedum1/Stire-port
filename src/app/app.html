@@ -42,7 +42,7 @@
       </div>
       
       <h1 class="animate-reveal opacity-0 text-5xl sm:text-6xl md:text-8xl lg:text-[130px] font-bold italic leading-[0.85] max-w-7xl mb-6 md:mb-10 drop-shadow-[4px_4px_0_rgba(0,0,0,0.1)]" style="letter-spacing: -4px;">
-        Digital <br class="hidden md:block"/> excellence.
+        D<span id="firstI">i</span>gital <br class="hidden md:block"/> excellence.
       </h1>
       
       <p class="animate-reveal opacity-0 text-base sm:text-lg md:text-xl text-[var(--color-text-dim)] max-w-2xl mb-10 md:mb-14 font-serif italic leading-relaxed">
@@ -91,8 +91,11 @@
     <!-- Render menu overlay unconditionally, control visibility and motion via CSS classes for smooth exit -->
     <div class="fixed inset-0 z-50 bg-black/50 transition-all duration-500" [class.opacity-0]="!isMenuOpen()" [class.pointer-events-none]="!isMenuOpen()" (click)="toggleMenu()">
         <!-- Floating Light Side Panel -->
-        <div class="w-[130px] sm:w-[170px] bg-[#F3F3F3] text-[#161616] rounded-[16px] xl:rounded-[24px] border border-black/10 p-3 sm:p-5 pb-[60px] shadow-2xl font-sans overflow-hidden transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] flex flex-col absolute right-3 sm:right-5 bottom-3 sm:bottom-5" 
+        <div class="sm:w-[170px] bg-[#F3F3F3] text-[#161616] rounded-[16px] xl:rounded-[24px] border border-black/10 p-3 sm:p-5 pb-[60px] shadow-2xl font-sans overflow-hidden transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] flex flex-col absolute right-3 sm:right-5 bottom-3 sm:bottom-5" 
+             [class.w-[130px]]="!isMobile()"
              [style.top.px]="menuTop()"
+             [style.left.px]="isMobile() ? menuLeft() : null"
+             [style.width]="isMobile() ? 'auto' : null"
              [class.translate-x-[150%]]="!isMenuOpen()" [class.translate-x-0]="isMenuOpen()" (click)="$event.stopPropagation()">
             <!-- Static Content Scrollable -->
             <div class="relative w-full h-full flex flex-col pt-2 overflow-hidden [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">

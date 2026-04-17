@@ -13,10 +13,13 @@ export class App implements OnInit, AfterViewInit {
   isLoading = signal(true);
   isMenuOpen = signal(false);
   menuTop = signal(100);
+  menuLeft = signal<number | null>(null);
+  isMobile = signal(false);
   
   @ViewChild('logoText', { static: false }) logoTextRef?: ElementRef<HTMLElement>;
 
   ngOnInit() {
+    this.isMobile.set(typeof window !== 'undefined' ? window.innerWidth < 640 : false);
     this.simulateProgress();
   }
 
@@ -28,6 +31,9 @@ export class App implements OnInit, AfterViewInit {
 
   @HostListener('window:resize')
   onResize() {
+    if (typeof window !== 'undefined') {
+      this.isMobile.set(window.innerWidth < 640);
+    }
     this.updateMenuPosition();
   }
 
@@ -36,6 +42,16 @@ export class App implements OnInit, AfterViewInit {
     if (badge) {
       const rect = badge.getBoundingClientRect();
       this.menuTop.set(rect.top);
+    }
+
+    if (this.isMobile()) {
+      const firstI = document.getElementById('firstI');
+      if (firstI) {
+        const rect = firstI.getBoundingClientRect();
+        this.menuLeft.set(rect.left);
+      }
+    } else {
+      this.menuLeft.set(null);
     }
   }
 
