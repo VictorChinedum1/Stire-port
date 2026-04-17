@@ -3,10 +3,10 @@
     <!-- Loader Cinematic Overlay -->
     <div id="loader" class="fixed inset-0 z-[100] flex items-center justify-center transition-opacity duration-1000" [class.opacity-100]="isLoading()" [class.opacity-0]="!isLoading()" [class.pointer-events-auto]="isLoading()" [class.pointer-events-none]="!isLoading()">
       <!-- Massive S that will be controlled by motion in TS -->
-      <h1 id="loader-s" class="font-bold leading-none capitalize italic text-[var(--color-accent-cream)]" style="font-size: min(80vh, 600px); letter-spacing: -4px;">
+      <h1 id="loader-s" class="font-bold leading-none capitalize italic text-[var(--color-accent-cream)]" style="font-size: min(25vh, 150px); letter-spacing: -2px;">
         S
       </h1>
-      <div id="loader-bg" class="absolute inset-0 bg-[#0A0A0A] -z-10 bg-gradient-to-b from-[#0A0A0A] to-[#121212]"></div>
+      <div id="loader-bg" class="absolute inset-0 bg-[var(--color-bg-deep)] -z-10"></div>
     </div>
 
     <!-- Background Typography Continuation -->
