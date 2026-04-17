@@ -18,8 +18,6 @@ export class App implements OnInit, AfterViewInit {
   isMobile = signal(false);
   isBrowser = false;
   
-  @ViewChild('logoText', { static: false }) logoTextRef?: ElementRef<HTMLElement>;
-
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {
     this.isBrowser = isPlatformBrowser(this.platformId);
   }
@@ -27,15 +25,68 @@ export class App implements OnInit, AfterViewInit {
   ngOnInit() {
     if (this.isBrowser) {
       this.isMobile.set(window.innerWidth < 640);
-      this.simulateProgress();
     } else {
       this.isLoading.set(false);
     }
   }
 
   ngAfterViewInit() {
-    if (this.isBrowser && this.logoTextRef) {
-      animate(this.logoTextRef.nativeElement, { opacity: [0, 1], y: [20, 0] }, { duration: 1.5, ease: 'easeOut' });
+    if (!this.isBrowser) return;
+
+    const loader = document.getElementById('loader');
+    const loaderS = document.getElementById('loader-s');
+    const loaderBg = document.getElementById('loader-bg');
+
+    if (loader && loaderS && loaderBg) {
+      // Start normal size, totally hidden initially to fade in
+      loaderS.style.transform = 'scale(1)';
+      loaderS.style.opacity = '0';
+      
+      // 1. Initial fade in for the "S"
+      animate(loaderS, 
+        { opacity: [0, 1] }, 
+        { duration: 0.8, ease: 'easeOut' }
+      );
+
+      // Subtle gentle breathing while loading
+      const loadingBreathing = animate(loaderS,
+        { scale: [1, 1.05, 1] },
+        { duration: 2, repeat: Infinity, ease: 'easeInOut' }
+      );
+      
+      // Let it "load", then sequence the zoom in
+      setTimeout(() => {
+        loadingBreathing.stop(); // Stop the breath effect before zooming
+        
+        // 2. Cinematic zoom IN (grow massively to fly past camera) and fade out
+        animate(loaderS, 
+          { scale: [1, 80], opacity: [1, 0] }, 
+          { duration: 1.6, ease: [0.64, 0, 0.78, 0] } // Accelerate into camera
+        );
+
+        // 3. Fade out the loader background to reveal hero
+        animate(loaderBg, 
+          { opacity: [1, 0] }, 
+          { delay: 0.4, duration: 1.2, ease: 'easeOut' }
+        );
+
+        // Trigger hero content animation as the S clears the screen
+        setTimeout(() => {
+          this.triggerHeroAnimation();
+          this.updateMenuPosition();
+        }, 600);
+
+        // Final completion and teardown
+        setTimeout(() => {
+          loader.style.display = 'none'; // hard hide it to ensure no pointer events
+          this.isLoading.set(false);
+        }, 1600);
+
+      }, 4000); // Time to hold the 'S' before zooming
+    } else {
+      this.isLoading.set(false);
+      this.triggerHeroAnimation();
+      this.updateMenuPosition();
     }
   }
 
@@ -65,34 +116,6 @@ export class App implements OnInit, AfterViewInit {
     } else {
       this.menuLeft.set(null);
     }
-  }
-
-  simulateProgress() {
-    if (!this.isBrowser) return;
-
-    setTimeout(() => {
-      const loader = document.getElementById('loader');
-      if (loader) {
-        animate(loader, { opacity: 0 }, { duration: 1.2, ease: 'easeOut' }).finished.then(() => {
-          this.isLoading.set(false);
-          // Wait for DOM to render @else branch before triggering hero animations
-          setTimeout(() => {
-            if (this.isBrowser) {
-              this.triggerHeroAnimation();
-              this.updateMenuPosition();
-            }
-          }, 50);
-        });
-      } else {
-        this.isLoading.set(false);
-        setTimeout(() => {
-          if (this.isBrowser) {
-            this.triggerHeroAnimation();
-            this.updateMenuPosition();
-          }
-        }, 50);
-      }
-    }, 5000);
   }
 
   triggerHeroAnimation() {
