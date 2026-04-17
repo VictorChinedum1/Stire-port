@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, signal, OnInit, ElementRef, ViewChild, AfterViewInit, HostListener } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal, OnInit, ElementRef, ViewChild, AfterViewInit, HostListener, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { animate, stagger } from 'motion';
 
@@ -15,29 +16,40 @@ export class App implements OnInit, AfterViewInit {
   menuTop = signal(100);
   menuLeft = signal<number | null>(null);
   isMobile = signal(false);
+  isBrowser = false;
   
   @ViewChild('logoText', { static: false }) logoTextRef?: ElementRef<HTMLElement>;
 
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+    this.isBrowser = isPlatformBrowser(this.platformId);
+  }
+
   ngOnInit() {
-    this.isMobile.set(typeof window !== 'undefined' ? window.innerWidth < 640 : false);
-    this.simulateProgress();
+    if (this.isBrowser) {
+      this.isMobile.set(window.innerWidth < 640);
+      this.simulateProgress();
+    } else {
+      this.isLoading.set(false);
+    }
   }
 
   ngAfterViewInit() {
-    if (this.logoTextRef) {
+    if (this.isBrowser && this.logoTextRef) {
       animate(this.logoTextRef.nativeElement, { opacity: [0, 1], y: [20, 0] }, { duration: 1.5, ease: 'easeOut' });
     }
   }
 
   @HostListener('window:resize')
   onResize() {
-    if (typeof window !== 'undefined') {
+    if (this.isBrowser) {
       this.isMobile.set(window.innerWidth < 640);
+      this.updateMenuPosition();
     }
-    this.updateMenuPosition();
   }
 
   updateMenuPosition() {
+    if (!this.isBrowser) return;
+
     const badge = document.getElementById('earlyAccessBadge');
     if (badge) {
       const rect = badge.getBoundingClientRect();
@@ -56,6 +68,8 @@ export class App implements OnInit, AfterViewInit {
   }
 
   simulateProgress() {
+    if (!this.isBrowser) return;
+
     setTimeout(() => {
       const loader = document.getElementById('loader');
       if (loader) {
@@ -63,24 +77,29 @@ export class App implements OnInit, AfterViewInit {
           this.isLoading.set(false);
           // Wait for DOM to render @else branch before triggering hero animations
           setTimeout(() => {
-            this.triggerHeroAnimation();
-            this.updateMenuPosition();
+            if (this.isBrowser) {
+              this.triggerHeroAnimation();
+              this.updateMenuPosition();
+            }
           }, 50);
         });
       } else {
         this.isLoading.set(false);
         setTimeout(() => {
-          this.triggerHeroAnimation();
-          this.updateMenuPosition();
+          if (this.isBrowser) {
+            this.triggerHeroAnimation();
+            this.updateMenuPosition();
+          }
         }, 50);
       }
     }, 5000);
   }
 
   triggerHeroAnimation() {
+    if (!this.isBrowser) return;
     const reveals = document.querySelectorAll('.animate-reveal');
     if (reveals.length > 0) {
-      animate(reveals as any, 
+      animate(Array.from(reveals), 
         { opacity: [0, 1], y: [40, 0] },
         { delay: stagger(0.12), duration: 1.5, ease: [0.22, 1, 0.36, 1] }
       );
@@ -88,7 +107,9 @@ export class App implements OnInit, AfterViewInit {
   }
 
   toggleMenu() {
-    this.updateMenuPosition();
+    if (this.isBrowser) {
+      this.updateMenuPosition();
+    }
     this.isMenuOpen.update(v => !v);
   }
 }
