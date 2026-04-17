@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, signal, OnInit, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal, OnInit, ElementRef, ViewChild, AfterViewInit, HostListener } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { animate, stagger } from 'motion';
 
@@ -12,6 +12,7 @@ import { animate, stagger } from 'motion';
 export class App implements OnInit, AfterViewInit {
   isLoading = signal(true);
   isMenuOpen = signal(false);
+  menuTop = signal(100);
   
   @ViewChild('logoText', { static: false }) logoTextRef?: ElementRef<HTMLElement>;
 
@@ -25,6 +26,19 @@ export class App implements OnInit, AfterViewInit {
     }
   }
 
+  @HostListener('window:resize')
+  onResize() {
+    this.updateMenuPosition();
+  }
+
+  updateMenuPosition() {
+    const badge = document.getElementById('earlyAccessBadge');
+    if (badge) {
+      const rect = badge.getBoundingClientRect();
+      this.menuTop.set(rect.top);
+    }
+  }
+
   simulateProgress() {
     setTimeout(() => {
       const loader = document.getElementById('loader');
@@ -32,11 +46,17 @@ export class App implements OnInit, AfterViewInit {
         animate(loader, { opacity: 0 }, { duration: 1.2, ease: 'easeOut' }).finished.then(() => {
           this.isLoading.set(false);
           // Wait for DOM to render @else branch before triggering hero animations
-          setTimeout(() => this.triggerHeroAnimation(), 50);
+          setTimeout(() => {
+            this.triggerHeroAnimation();
+            this.updateMenuPosition();
+          }, 50);
         });
       } else {
         this.isLoading.set(false);
-        setTimeout(() => this.triggerHeroAnimation(), 50);
+        setTimeout(() => {
+          this.triggerHeroAnimation();
+          this.updateMenuPosition();
+        }, 50);
       }
     }, 5000);
   }
@@ -52,6 +72,7 @@ export class App implements OnInit, AfterViewInit {
   }
 
   toggleMenu() {
+    this.updateMenuPosition();
     this.isMenuOpen.update(v => !v);
   }
 }
