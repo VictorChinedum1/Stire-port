@@ -8,8 +8,21 @@
   --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
   --font-serif: "Georgia", "Times New Roman", serif;
   --font-mono: "Courier New", Courier, monospace;
-  --color-mahogany: #54231c;
-  --color-bg-deep: #54231c;
-  --color-accent-cream: #f5f2ed;
-  --color-text-dim: rgba(245, 242, 237, 0.4);
+  --color-mahogany: #1A1A1A;
+  --color-bg-deep: #141414;
+  --color-accent-cream: #FFFFFF;
+  --color-text-dim: rgba(255, 255, 255, 0.5);
+
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-float-delayed: float 6s ease-in-out 3s infinite;
+  --animate-float-fast: float 4s ease-in-out infinite;
+  
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0) rotate(0deg);
+    }
+    50% {
+      transform: translateY(-20px) rotate(2deg);
+    }
+  }
 }
