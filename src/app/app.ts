@@ -18,8 +18,23 @@ export class App implements OnInit, AfterViewInit {
   isMobile = signal(false);
   isBrowser = false;
   
+  spiralPath = this.generateSpiral();
+
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {
     this.isBrowser = isPlatformBrowser(this.platformId);
+  }
+
+  generateSpiral() {
+    let path = "M 0 0 ";
+    const spacing = 5; 
+    for(let i = 0; i <= 3600 * 2.5; i += 10) { // 25 full turns
+      const angle = i * (Math.PI / 180);
+      const r = spacing * angle;
+      const x = parseFloat((r * Math.cos(angle)).toFixed(2));
+      const y = parseFloat((r * Math.sin(angle)).toFixed(2));
+      path += `L ${x} ${y} `;
+    }
+    return path;
   }
 
   ngOnInit() {
@@ -120,11 +135,22 @@ export class App implements OnInit, AfterViewInit {
 
   triggerHeroAnimation() {
     if (!this.isBrowser) return;
+    
+    // Rings first: graceful slow expansion
+    const rings = document.querySelectorAll('.animate-ring');
+    if (rings.length > 0) {
+      animate(Array.from(rings),
+        { opacity: [0, 1], scale: [0.5, 1] },
+        { delay: stagger(0.4), duration: 3, ease: 'easeOut' }
+      );
+    }
+
+    // Then reveal the text elements
     const reveals = document.querySelectorAll('.animate-reveal');
     if (reveals.length > 0) {
       animate(Array.from(reveals), 
         { opacity: [0, 1], y: [40, 0] },
-        { delay: stagger(0.12), duration: 1.5, ease: [0.22, 1, 0.36, 1] }
+        { delay: stagger(0.2, { startDelay: 0.5 }), duration: 1.5, ease: [0.22, 1, 0.36, 1] }
       );
     }
   }

@@ -13,19 +13,19 @@
     <div class="animate-reveal opacity-0 absolute text-[min(600px,80vw)] font-black text-black/[0.02] top-0 left-1/2 -translate-x-1/2 pointer-events-none whitespace-nowrap select-none tracking-tight leading-none mix-blend-overlay">STIRE</div>
 
     <!-- Navbar / Header -->
-    <header class="fixed top-0 left-0 w-full px-6 py-6 md:px-12 md:py-8 flex items-center justify-between z-50 mix-blend-difference">
-      <div class="animate-reveal opacity-0 text-5xl md:text-6xl font-bold italic drop-shadow-[2px_2px_0_rgba(0,0,0,0.1)] text-white/90" style="letter-spacing: -2px;">Stire</div>
-      <div class="flex items-center gap-6 text-white/90">
-        <nav class="animate-reveal opacity-0 hidden lg:flex gap-10 font-mono text-[10px] tracking-[2px] uppercase text-white/70">
+    <header class="relative w-full px-6 py-6 md:px-12 md:py-8 flex items-center justify-between z-50 mix-blend-difference">
+      <div class="animate-reveal opacity-0 font-serif text-4xl md:text-5xl lg:text-6xl font-bold italic text-white" style="letter-spacing: -1px;">Stire</div>
+      <div class="flex items-center gap-6 text-white">
+        <nav class="animate-reveal opacity-0 hidden lg:flex gap-10 font-sans text-[11px] tracking-[0.2em] uppercase text-[#888]">
           <a href="#" class="hover:text-white transition-colors">Platform</a>
           <a href="#" class="hover:text-white transition-colors">Solutions</a>
           <a href="#" class="hover:text-white transition-colors">Pricing</a>
         </nav>
-        <button class="animate-reveal opacity-0 hidden sm:block px-6 py-3 border border-white/50 text-white font-mono hover:bg-white hover:text-black transition-colors text-[9px] uppercase tracking-[2px]">
+        <button class="animate-reveal opacity-0 hidden sm:block px-6 py-3 bg-white text-black font-sans font-semibold hover:bg-gray-200 transition-colors text-[11px] uppercase tracking-[0.2em]">
           Get Started
         </button>
         <div class="animate-reveal opacity-0 shrink-0 z-40 relative">
-          <button (click)="toggleMenu()" class="w-12 h-12 flex flex-col items-center justify-center gap-1.5 border border-white/50 hover:bg-white/10 transition-opacity duration-300 group cursor-pointer" [class.opacity-100]="!isMenuOpen()" [class.opacity-0]="isMenuOpen()" [class.pointer-events-none]="isMenuOpen()">
+          <button (click)="toggleMenu()" class="w-12 h-12 flex flex-col items-center justify-center gap-1.5 border border-white/20 hover:bg-white/10 transition-opacity duration-300 group cursor-pointer" [class.opacity-100]="!isMenuOpen()" [class.opacity-0]="isMenuOpen()" [class.pointer-events-none]="isMenuOpen()">
             <span class="w-5 h-[2px] bg-white block transition-transform group-hover:translate-y-[2px]"></span>
             <span class="w-1 h-[2px] bg-transparent block"></span>
             <span class="w-5 h-[2px] bg-white block transition-transform group-hover:-translate-y-[2px]"></span>
@@ -35,45 +35,33 @@
     </header>
 
     <!-- Hero Section -->
-    <section class="flex-1 flex flex-col lg:flex-row relative z-10 w-full min-h-screen pt-32 lg:pt-0 overflow-hidden px-6 md:px-12 bg-transparent text-white">
+    <section class="flex-1 flex flex-col justify-center relative z-10 w-full px-6 md:px-12 bg-transparent text-white min-h-[calc(100vh-120px)] pt-8 pb-24 lg:pb-32 overflow-hidden">
       
+      <!-- SVG Archimedean Spiral Background -->
+      <div class="absolute inset-0 z-0 pointer-events-none flex items-center justify-center lg:translate-x-[20%] opacity-50">
+         <svg class="animate-ring opacity-0 min-w-[200vw] sm:min-w-[1200px] sm:w-[120vw] animate-[spin_180s_linear_infinite]" viewBox="-600 -600 1200 1200">
+            <path [attr.d]="spiralPath" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1" />
+         </svg>
+      </div>
+
       <!-- Big Typography Left Anchor -->
-      <div class="relative z-20 w-full lg:w-5/12 flex flex-col justify-end pb-12 lg:pb-32 h-[80vh] lg:h-screen mt-32 lg:mt-0">
-        <h1 class="animate-reveal opacity-0 font-sans text-4xl sm:text-5xl md:text-6xl lg:text-[4.5rem] xl:text-[5.5rem] leading-[0.9] font-medium tracking-tight text-white uppercase ml-0 lg:ml-10 mb-10 lg:mb-0">
-          <span class="block">Elevating</span>
-          <span class="block text-white/50 flex items-center">
-            Brands in
-          </span>
-          <span class="block">Unexpected</span>
-          <span class="block flex items-center gap-6">
-             Ways.
-             <!-- Mock logo / totem like the pink 'M' in the image -->
-             <span class="inline-flex items-center justify-center w-10 h-10 lg:w-16 lg:h-16 border border-white/20 rounded-md text-white/50 text-sm mt-3 ml-2 lg:mt-6 animate-pulse">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" class="text-pink-400 opacity-80" stroke="currentColor" stroke-width="1.5"><path d="M4 19L12 5L20 19 M8 13L16 13"></path></svg>
-             </span>
-          </span>
+      <div class="relative z-20 w-full lg:w-3/4 flex flex-col justify-center mt-4 md:mt-8">
+        <h1 class="font-serif font-bold italic text-[32px] md:text-[42px] lg:text-[54px] leading-[1.1] tracking-tight m-0 p-0 text-left">
+          <div class="animate-reveal opacity-0 text-white">ELEVATING</div>
+          <div class="animate-reveal opacity-0 text-[#666666]">BRANDS IN</div>
+          <div class="animate-reveal opacity-0 text-white">UNEXPECTED WAYS.</div>
         </h1>
       </div>
 
-      <!-- Orbital Interactive Cluster Right Side -->
-      <div class="absolute inset-0 lg:relative z-10 w-full lg:w-7/12 h-[60vh] lg:h-screen flex items-center justify-center pointer-events-none lg:pointer-events-auto mt-[10vh] lg:mt-0">
-         
-         <!-- The Orbital Rings (Dashed/Dotted thin circle) -->
-         <div class="absolute w-[140vw] h-[140vw] sm:w-[900px] sm:h-[900px] border border-white/10 rounded-full border-dashed animate-[spin_120s_linear_infinite] lg:-translate-x-1/4"></div>
-         <div class="absolute w-[90vw] h-[90vw] sm:w-[500px] sm:h-[500px] border border-white/5 rounded-full animate-[spin_80s_linear_infinite_reverse] lg:-translate-x-1/4"></div>
-
-         <!-- Floating Cloud -->
-         <!-- Note: using inline styles or Tailwind absolutes for exact pseudo-random placement -->
-         <div class="relative w-full h-full max-w-4xl max-h-[800px] lg:-translate-x-12">
-            
-            <!-- Floating Text Labels -->
-            <div class="absolute top-[35%] left-[10%] font-mono text-[8px] sm:text-[10px] tracking-[0.2em] font-light uppercase text-white animate-float">Brand<br>Identity</div>
-            <div class="absolute top-[42%] right-[40%] font-mono text-[8px] sm:text-[10px] tracking-[0.2em] font-light uppercase text-white animate-float-delayed">Webgl/VR</div>
-            <div class="absolute top-[50%] right-[30%] font-mono text-[8px] sm:text-[10px] tracking-[0.2em] font-light uppercase text-white/80 animate-float-fast">App<br>Development</div>
-            <div class="absolute bottom-[40%] left-[45%] font-mono text-[8px] sm:text-[10px] tracking-[0.2em] font-light uppercase text-white animate-float-delayed">UX/UI</div>
-            <div class="absolute bottom-[30%] right-[25%] font-mono text-[8px] sm:text-[10px] tracking-[0.2em] font-light uppercase text-white animate-float-fast">Product<br>Design</div>
-            <div class="absolute bottom-[10%] right-[45%] font-mono text-[8px] sm:text-[10px] tracking-[0.2em] font-light uppercase text-white/60 animate-float">Art<br>Direction</div>
-            
+      <!-- Floating Service Labels (Right Half Absolute) -->
+      <div class="absolute inset-y-0 right-0 w-full lg:w-1/2 z-10 pointer-events-none h-full hidden md:block">
+         <div class="relative w-full h-[80vh] mt-[10vh]">
+            <div class="animate-reveal opacity-0 absolute top-[20%] left-[10%] text-[#888888] text-[11px] tracking-[0.2em] uppercase font-sans animate-float">Brand Identity</div>
+            <div class="animate-reveal opacity-0 absolute top-[35%] right-[20%] text-[#888888] text-[11px] tracking-[0.2em] uppercase font-sans animate-float-delayed">Webgl/VR</div>
+            <div class="animate-reveal opacity-0 absolute top-[50%] left-[30%] text-[#888888] text-[11px] tracking-[0.2em] uppercase font-sans animate-float-fast">UX/UI</div>
+            <div class="animate-reveal opacity-0 absolute bottom-[40%] right-[10%] text-[#888888] text-[11px] tracking-[0.2em] uppercase font-sans animate-float-delayed">App Development</div>
+            <div class="animate-reveal opacity-0 absolute bottom-[25%] left-[25%] text-[#888888] text-[11px] tracking-[0.2em] uppercase font-sans animate-float-fast">Product Design</div>
+            <div class="animate-reveal opacity-0 absolute bottom-[10%] right-[30%] text-[#888888] text-[11px] tracking-[0.2em] uppercase font-sans animate-float">Art Direction</div>
          </div>
       </div>
     </section>
