@@ -1,4 +1,4 @@
-  <main class="min-h-screen bg-[var(--color-bg-deep)] text-[var(--color-accent-cream)] selection:bg-[var(--color-accent-cream)]/20 flex flex-col font-serif relative overflow-x-hidden overflow-y-auto" [class.fixed]="isLoading()" [class.h-screen]="isLoading()" [class.w-screen]="isLoading()">
+  <main (scroll)="onScroll($event)" class="min-h-screen bg-[var(--color-bg-deep)] text-[var(--color-accent-cream)] selection:bg-[var(--color-accent-cream)]/20 flex flex-col font-serif relative overflow-x-hidden overflow-y-auto" [class.fixed]="isLoading()" [class.h-screen]="isLoading()" [class.w-screen]="isLoading()">
     
     <!-- Loader Cinematic Overlay -->
     <div id="loader" class="fixed inset-0 z-[100] flex items-center justify-center transition-opacity duration-1000" [class.opacity-100]="isLoading()" [class.opacity-0]="!isLoading()" [class.pointer-events-auto]="isLoading()" [class.pointer-events-none]="!isLoading()">
@@ -10,7 +10,8 @@
     </div>
 
     <!-- Background Typography Continuation -->
-    <div class="animate-reveal opacity-0 absolute text-[min(600px,80vw)] font-black text-black/[0.02] top-0 left-1/2 -translate-x-1/2 pointer-events-none whitespace-nowrap select-none tracking-tight leading-none hidden">STIRE</div>
+    <div class="animate-reveal opacity-5 absolute text-[min(600px,80vw)] font-black text-white/5 top-0 left-1/2 pointer-events-none whitespace-nowrap select-none tracking-tight leading-none"
+         [style.transform]="'translate(-50%, ' + (scrollY() * 0.4) + 'px)'">STIRE</div>
 
     <!-- Navbar / Header -->
     <header class="relative w-full px-4 py-4 md:px-12 md:py-8 flex items-center justify-between z-50">
@@ -56,6 +57,40 @@
          </svg>
       </div>
 
+      <!-- Decorative Images (Desktop) -->
+      <div class="absolute inset-0 z-[5] pointer-events-none hidden md:block">
+        <!-- Top-right tall rectangle -->
+        <div class="absolute" style="top: 20%; right: 25%;" [style.transform]="'translateY(' + (scrollY() * -0.2) + 'px)'">
+          <img src="https://picsum.photos/seed/ocean1/160/210" alt="" referrerpolicy="no-referrer" 
+               class="w-[160px] h-[210px] object-cover rounded-[4px] opacity-0 animate-image-reveal" />
+        </div>
+        
+        <!-- Bottom-left square -->
+        <div class="absolute" style="bottom: 5%; left: 8%;" [style.transform]="'translateY(' + (scrollY() * 0.15) + 'px)'">
+          <img src="https://picsum.photos/seed/ocean2/150/150" alt="" referrerpolicy="no-referrer" 
+               class="w-[150px] h-[150px] object-cover rounded-[4px] opacity-0 animate-image-reveal" />
+        </div>
+             
+        <!-- Bottom-right D-shape -->
+        <div class="absolute" style="bottom: 12%; right: -20px;" [style.transform]="'translateY(' + (scrollY() * -0.1) + 'px)'">
+          <img src="https://picsum.photos/seed/ocean3/140/160" alt="" referrerpolicy="no-referrer" 
+               class="w-[140px] h-[160px] object-cover opacity-0 animate-image-reveal" 
+               style="border-radius: 0 9999px 9999px 0;" />
+        </div>
+
+        <!-- NEW: Top-left portrait -->
+        <div class="absolute" style="top: 28%; left: 16%;" [style.transform]="'translateY(' + (scrollY() * 0.25) + 'px)'">
+           <img src="https://picsum.photos/seed/ocean4/120/160" alt="" referrerpolicy="no-referrer" 
+                class="w-[120px] h-[160px] object-cover rounded-[4px] opacity-0 animate-image-reveal shadow-xl" />
+        </div>
+
+        <!-- NEW: Mid-right landscape -->
+        <div class="absolute" style="top: 45%; right: 8%;" [style.transform]="'translateY(' + (scrollY() * -0.3) + 'px)'">
+           <img src="https://picsum.photos/seed/ocean5/180/120" alt="" referrerpolicy="no-referrer" 
+                class="w-[180px] h-[120px] object-cover rounded-[4px] opacity-0 animate-image-reveal shadow-lg" />
+        </div>
+      </div>
+
       <!-- Big Typography Text -->
       <div class="relative z-20 w-full flex flex-col mt-0 md:mt-auto text-left transform md:origin-bottom-left">
         <h1 class="font-sans uppercase text-[15.5vw] sm:text-[10vw] md:text-[8.5vw] lg:text-[7vw] xl:text-[6.3vw] font-normal md:font-black tracking-normal md:tracking-tighter m-0 p-0 transform scale-y-100 md:scale-y-[1.25] text-[#d4d4d4] md:text-white leading-[1] md:leading-[0.9]">
@@ -86,12 +121,29 @@
       <!-- Floating Service Labels (Right Half Absolute) -->
       <div class="absolute inset-y-0 right-0 w-full lg:w-1/2 z-10 pointer-events-none h-full hidden md:block">
          <div class="relative w-full h-[80vh] mt-[10vh]">
-            <div class="animate-reveal opacity-0 absolute top-[20%] left-[10%] text-[#888888] text-[11px] tracking-[0.2em] uppercase font-sans animate-float">Brand Identity</div>
-            <div class="animate-reveal opacity-0 absolute top-[35%] right-[20%] text-[#888888] text-[11px] tracking-[0.2em] uppercase font-sans animate-float-delayed">Webgl/VR</div>
-            <div class="animate-reveal opacity-0 absolute top-[50%] left-[30%] text-[#888888] text-[11px] tracking-[0.2em] uppercase font-sans animate-float-fast">UX/UI</div>
-            <div class="animate-reveal opacity-0 absolute bottom-[40%] right-[10%] text-[#888888] text-[11px] tracking-[0.2em] uppercase font-sans animate-float-delayed">App Development</div>
-            <div class="animate-reveal opacity-0 absolute bottom-[25%] left-[25%] text-[#888888] text-[11px] tracking-[0.2em] uppercase font-sans animate-float-fast">Product Design</div>
-            <div class="animate-reveal opacity-0 absolute bottom-[10%] right-[30%] text-[#888888] text-[11px] tracking-[0.2em] uppercase font-sans animate-float">Art Direction</div>
+            <div class="absolute top-[20%] left-[10%]" [style.transform]="'translateY(' + (scrollY() * -0.1) + 'px)'">
+                <div class="animate-reveal opacity-0 text-[#888888] text-[11px] tracking-[0.2em] uppercase font-sans animate-float">Brand Identity</div>
+            </div>
+            
+            <div class="absolute top-[35%] right-[20%]" [style.transform]="'translateY(' + (scrollY() * -0.25) + 'px)'">
+                <div class="animate-reveal opacity-0 text-[#888888] text-[11px] tracking-[0.2em] uppercase font-sans animate-float-delayed">Webgl/VR</div>
+            </div>
+            
+            <div class="absolute top-[50%] left-[30%]" [style.transform]="'translateY(' + (scrollY() * 0.15) + 'px)'">
+                <div class="animate-reveal opacity-0 text-[#888888] text-[11px] tracking-[0.2em] uppercase font-sans animate-float-fast">UX/UI</div>
+            </div>
+            
+            <div class="absolute bottom-[40%] right-[10%]" [style.transform]="'translateY(' + (scrollY() * -0.15) + 'px)'">
+                <div class="animate-reveal opacity-0 text-[#888888] text-[11px] tracking-[0.2em] uppercase font-sans animate-float-delayed">App Development</div>
+            </div>
+            
+            <div class="absolute bottom-[25%] left-[25%]" [style.transform]="'translateY(' + (scrollY() * 0.3) + 'px)'">
+                <div class="animate-reveal opacity-0 text-[#888888] text-[11px] tracking-[0.2em] uppercase font-sans animate-float-fast">Product Design</div>
+            </div>
+            
+            <div class="absolute bottom-[10%] right-[30%]" [style.transform]="'translateY(' + (scrollY() * -0.3) + 'px)'">
+                <div class="animate-reveal opacity-0 text-[#888888] text-[11px] tracking-[0.2em] uppercase font-sans animate-float">Art Direction</div>
+            </div>
          </div>
       </div>
 
@@ -104,6 +156,9 @@
         </button>
       </div>
     </section>
+
+    <!-- Scroll Spacer (Temporary) to allow scrolling to test Parallax -->
+    <div class="h-[50vh] w-full pointer-events-none"></div>
     
     <!-- Render menu overlay unconditionally, control visibility and motion via CSS classes for smooth exit -->
     <div class="fixed inset-0 z-50 transition-all duration-500 pointer-events-none">

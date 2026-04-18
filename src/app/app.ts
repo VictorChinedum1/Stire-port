@@ -17,11 +17,17 @@ export class App implements OnInit, AfterViewInit {
   menuLeft = signal<number | null>(null);
   isMobile = signal(false);
   isBrowser = false;
+  scrollY = signal(0);
   
   spiralPath = this.generateSpiral();
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {
     this.isBrowser = isPlatformBrowser(this.platformId);
+  }
+
+  onScroll(event: Event) {
+    const target = event.target as HTMLElement;
+    this.scrollY.set(target.scrollTop);
   }
 
   generateSpiral() {
@@ -151,6 +157,15 @@ export class App implements OnInit, AfterViewInit {
       animate(Array.from(reveals), 
         { opacity: [0, 1], y: [40, 0] },
         { delay: stagger(0.2, { startDelay: 0.5 }), duration: 1.5, ease: [0.22, 1, 0.36, 1] }
+      );
+    }
+    
+    // Then VERY slowly reveal the decorative images (heavy stagger, long duration)
+    const imageReveals = document.querySelectorAll('.animate-image-reveal');
+    if (imageReveals.length > 0) {
+      animate(Array.from(imageReveals), 
+        { opacity: [0, 1], scale: [0.95, 1], filter: ['blur(10px)', 'blur(0px)'] },
+        { delay: stagger(0.4, { startDelay: 1.5 }), duration: 4, ease: [0.22, 1, 0.36, 1] }
       );
     }
   }
