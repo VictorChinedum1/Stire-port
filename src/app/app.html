@@ -9,13 +9,21 @@
       <div id="loader-bg" class="absolute inset-0 bg-[var(--color-bg-deep)] -z-10"></div>
     </div>
 
+    <!-- Page Transition Overlay -->
+    <div class="fixed inset-0 z-[110] bg-[#1a1a1a] flex items-center justify-center transition-transform duration-[1200ms] ease-[cubic-bezier(0.65,0,0.35,1)] pointer-events-none"
+         [class.origin-top]="transitionPhase() === 'covering'"
+         [class.origin-bottom]="transitionPhase() === 'revealing' || transitionPhase() === 'closed'"
+         [class.scale-y-0]="transitionPhase() === 'closed' || transitionPhase() === 'revealing'"
+         [class.scale-y-100]="transitionPhase() === 'covering'">
+    </div>
+
     <!-- Background Typography Continuation -->
     <div class="animate-reveal opacity-5 absolute text-[min(600px,80vw)] font-black text-white/5 top-0 left-1/2 pointer-events-none whitespace-nowrap select-none tracking-tight leading-none"
          [style.transform]="'translate(-50%, ' + (scrollY() * 0.4) + 'px)'">STIRE</div>
 
     <!-- Navbar / Header -->
     <header class="relative w-full px-4 py-4 md:px-12 md:py-8 flex items-center justify-between z-50">
-      <div class="animate-reveal opacity-0 font-sans text-[26px] md:text-5xl lg:text-6xl font-light tracking-widest text-white" style="letter-spacing: 2px;">STIRE.</div>
+      <div (click)="navigateTo('home')" class="cursor-pointer animate-reveal opacity-0 font-sans text-[26px] md:text-5xl lg:text-6xl font-light tracking-widest text-white" style="letter-spacing: 2px;">STIRE.</div>
       <div class="flex items-center gap-4 md:gap-6 text-white">
         <nav class="animate-reveal opacity-0 hidden lg:flex gap-10 font-sans text-[11px] tracking-[0.2em] uppercase text-[#888]">
           <a href="#" class="hover:text-white transition-colors">Platform</a>
@@ -44,6 +52,7 @@
       </div>
     </header>
 
+    @if (currentPage() === 'home') {
     <!-- Hero Section -->
     <section class="flex-1 flex flex-col justify-start md:justify-end relative z-10 w-full px-4 md:px-12 bg-transparent text-white min-h-[calc(100vh-80px)] pt-[6vh] md:pt-[25vh] pb-8 md:pb-[10vh] overflow-hidden">
       
@@ -159,6 +168,56 @@
 
     <!-- Scroll Spacer (Temporary) to allow scrolling to test Parallax -->
     <div class="h-[50vh] w-full pointer-events-none"></div>
+    }
+
+    @if (currentPage() === 'about') {
+    <!-- About Us Page -->
+    <section class="flex-1 flex flex-col pt-[15vh] pb-[10vh] relative z-10 w-full px-4 md:px-12 text-white min-h-[calc(100vh-80px)]">
+        <div class="w-full max-w-7xl mx-auto flex flex-col gap-12 lg:gap-24">
+            
+            <!-- Intro Block -->
+            <div class="w-full flex w-full flex-col lg:flex-row justify-between lg:items-end gap-8 border-b border-white/10 pb-12 animate-about-waterfall opacity-0">
+                <h1 class="text-[12vw] sm:text-[10vw] md:text-[8vw] lg:text-[6vw] font-sans font-light tracking-tighter leading-[0.9] text-white">
+                    WHO WE <br> <span class="text-[#888888]">ARE.</span>
+                </h1>
+                <div class="lg:max-w-md text-[#b3b3b3] font-sans text-[14px] md:text-[16px] leading-[1.6]">
+                    We are a digital-first creative agency blurring the lines between art direction, experiential web design, and bulletproof software engineering. We don't just build brands, we build digital monoliths.
+                </div>
+            </div>
+
+            <!-- Image Grid Waterfall -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
+                <!-- Column 1 -->
+                <div class="flex flex-col gap-6 md:gap-10 mt-0 lg:mt-12 animate-about-waterfall opacity-0">
+                    <img src="https://picsum.photos/seed/about1/600/800" alt="Team working" class="w-full aspect-[3/4] object-cover rounded-[8px]" />
+                    <div class="font-sans">
+                        <div class="text-[11px] tracking-[0.2em] font-semibold text-white uppercase mb-2">Our Foundation</div>
+                        <p class="text-[#888] text-[14px] leading-[1.5]">Forged in the intersection of minimalism and chaos, we dissect classical design patterns to create completely native, brutally functional ecosystems.</p>
+                    </div>
+                </div>
+
+                <!-- Column 2 -->
+                <div class="flex flex-col gap-6 md:gap-10 animate-about-waterfall opacity-0">
+                    <img src="https://picsum.photos/seed/about2/600/800" alt="Design process" class="w-full aspect-[3/4] object-cover rounded-[8px]" />
+                    <div class="font-sans">
+                        <div class="text-[11px] tracking-[0.2em] font-semibold text-white uppercase mb-2">The Process</div>
+                        <p class="text-[#888] text-[14px] leading-[1.5]">Subtractive iteration. We remove everything until only the absolute necessary structure remains. Speed, scale, and uncompromising aesthetic execution are our north stars.</p>
+                    </div>
+                </div>
+
+                <!-- Column 3 -->
+                <div class="flex flex-col gap-6 md:gap-10 mt-0 lg:mt-24 animate-about-waterfall opacity-0">
+                    <img src="https://picsum.photos/seed/about3/600/600" alt="Final product" class="w-full aspect-square object-cover rounded-[8px]" />
+                    <div class="font-sans">
+                        <div class="text-[11px] tracking-[0.2em] font-semibold text-white uppercase mb-2">The Standard</div>
+                        <p class="text-[#888] text-[14px] leading-[1.5]">Mediocrity is a disease. If it doesn't challenge the industry, it's not worth publishing. Every pixel, every route, every frame matters.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    }
     
     <!-- Render menu overlay unconditionally, control visibility and motion via CSS classes for smooth exit -->
     <div class="fixed inset-0 z-50 transition-all duration-500 pointer-events-none">
@@ -186,11 +245,11 @@
             <!-- Static Content Scrollable -->
             <div class="relative w-full h-full flex flex-col pt-2 overflow-y-auto overflow-x-hidden [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
                  <!-- Menu Links -->
-                 <a href="#" class="flex justify-between items-center py-3 border-b border-black/10 text-[11px] sm:text-[13px] font-semibold tracking-wide hover:text-black/60 transition-all duration-700 ease-out group shrink-0 delay-300" [class.opacity-0]="!isMenuOpen()" [class.translate-y-8]="!isMenuOpen()" [class.opacity-100]="isMenuOpen()" [class.translate-y-0]="isMenuOpen()">
+                 <a href="#" (click)="$event.preventDefault(); navigateTo('home')" class="flex justify-between items-center py-3 border-b border-black/10 text-[11px] sm:text-[13px] font-semibold tracking-wide hover:text-black/60 transition-all duration-700 ease-out group shrink-0 delay-300" [class.opacity-0]="!isMenuOpen()" [class.translate-y-8]="!isMenuOpen()" [class.opacity-100]="isMenuOpen()" [class.translate-y-0]="isMenuOpen()">
                    <span class="transition-transform duration-500 group-hover:translate-x-2">HOME</span>
                    <span class="material-icons text-[15px] sm:text-[16px] transition-transform duration-500 group-hover:-translate-x-1">arrow_forward</span>
                  </a>
-                 <a href="#" class="flex justify-between items-center py-3 border-b border-black/10 text-[11px] sm:text-[13px] font-semibold tracking-wide hover:text-black/60 transition-all duration-700 ease-out group shrink-0 delay-[450ms]" [class.opacity-0]="!isMenuOpen()" [class.translate-y-8]="!isMenuOpen()" [class.opacity-100]="isMenuOpen()" [class.translate-y-0]="isMenuOpen()">
+                 <a href="#" (click)="$event.preventDefault(); navigateTo('about')" class="flex justify-between items-center py-3 border-b border-black/10 text-[11px] sm:text-[13px] font-semibold tracking-wide hover:text-black/60 transition-all duration-700 ease-out group shrink-0 delay-[450ms]" [class.opacity-0]="!isMenuOpen()" [class.translate-y-8]="!isMenuOpen()" [class.opacity-100]="isMenuOpen()" [class.translate-y-0]="isMenuOpen()">
                    <span class="transition-transform duration-500 group-hover:translate-x-2">ABOUT US</span>
                    <span class="material-icons text-[15px] sm:text-[16px] transition-transform duration-500 group-hover:-translate-x-1">arrow_forward</span>
                  </a>

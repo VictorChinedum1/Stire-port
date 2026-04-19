@@ -19,10 +19,68 @@ export class App implements OnInit, AfterViewInit {
   isBrowser = false;
   scrollY = signal(0);
   
+  currentPage = signal<'home' | 'about'>('home');
+  isTransitioning = signal(false);
+  transitionPhase = signal<'closed' | 'covering' | 'revealing'>('closed');
+  
   spiralPath = this.generateSpiral();
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {
     this.isBrowser = isPlatformBrowser(this.platformId);
+  }
+
+  navigateTo(page: 'home' | 'about') {
+    if (this.currentPage() === page || this.isTransitioning()) return;
+    
+    this.isTransitioning.set(true);
+    this.transitionPhase.set('covering');
+    this.isMenuOpen.set(false); // Close menu if open
+
+    // Wait for the cover animation to complete
+    setTimeout(() => {
+      this.currentPage.set(page);
+      this.transitionPhase.set('revealing');
+
+      // Scroll back to top completely
+      const mainEl = document.querySelector('main');
+      if (mainEl) {
+        mainEl.scrollTop = 0;
+      }
+      window.scrollTo(0, 0);
+      this.scrollY.set(0);
+
+      // Trigger animations based on page
+      setTimeout(() => {
+        if (page === 'home') {
+          this.triggerHeroAnimation();
+        } else if (page === 'about') {
+          this.triggerAboutAnimation();
+        }
+      }, 150);
+
+      // Finish transition and reset phase
+      setTimeout(() => {
+        this.transitionPhase.set('closed');
+        
+        // Add a small delay before allowing subsequent clicks
+        setTimeout(() => {
+          this.isTransitioning.set(false);
+        }, 300);
+      }, 1200); // Wait for the reveal to finish before resetting state
+      
+    }, 1200); // 1200ms matches the CSS duration
+  }
+
+  triggerAboutAnimation() {
+    if (!this.isBrowser) return;
+    
+    const elements = document.querySelectorAll('.animate-about-waterfall');
+    if (elements.length > 0) {
+      animate(Array.from(elements), 
+        { opacity: [0, 1], y: [60, 0] },
+        { delay: stagger(0.3, { startDelay: 0.4 }), duration: 2.2, ease: [0.22, 1, 0.36, 1] }
+      );
+    }
   }
 
   onScroll(event: Event) {
