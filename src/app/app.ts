@@ -1,9 +1,12 @@
-import { ChangeDetectionStrategy, Component, signal, effect, Inject, PLATFORM_ID, AfterViewInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal, effect, inject, PLATFORM_ID, AfterViewInit } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MagneticDirective } from './magnetic.directive';
-import { RouterModule, Router } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { animate } from 'motion';
+import Lenis from 'lenis';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -37,7 +40,7 @@ import { animate } from 'motion';
             </button>
 
             <!-- Magnetic Contact Button -->
-            <button magnetic
+            <button appMagnetic
                     class="group flex items-center justify-center px-6 lg:px-8 py-[10px] md:py-[14px] rounded-[100px] border border-[#522218] dark:border-[#FAF6F0] transition-colors duration-300 bg-transparent focus:outline-none hover:bg-[#522218] hover:text-[#FAF6F0] dark:hover:bg-[#FAF6F0] dark:hover:text-[#522218]">
               <span class="inline-block transition-transform duration-300 group-hover:scale-[1.1] font-bold uppercase tracking-[0.1em] text-[11px] md:text-[13px] leading-tight">
                 LET'S TALK
@@ -56,7 +59,9 @@ import { animate } from 'motion';
 export class App implements AfterViewInit {
   isDark = signal(true); 
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+  private platformId = inject(PLATFORM_ID);
+
+  constructor() {
     effect(() => {
       if (isPlatformBrowser(this.platformId)) {
         if (this.isDark()) {
@@ -70,6 +75,23 @@ export class App implements AfterViewInit {
 
   ngAfterViewInit() {
     if (!isPlatformBrowser(this.platformId)) return;
+
+    // Initialize Lenis for smooth scrolling
+    const lenis = new Lenis({
+      autoRaf: false,
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+    });
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    lenis.on('scroll', ScrollTrigger.update);
+
+    gsap.ticker.add((time) => {
+      lenis.raf(time * 1000);
+    });
+
+    gsap.ticker.lagSmoothing(0);
 
     // Fade in Navbar
     animate('.hero-nav', 

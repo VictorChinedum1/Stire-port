@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy, PLATFORM_ID, Inject } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, PLATFORM_ID, inject } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { animate, stagger } from 'motion';
 
@@ -36,9 +36,9 @@ export class RotatingTextComponent implements OnInit, OnDestroy {
   currentIndex = 0;
   previousIndex = -1;
   id = Math.random().toString(36).substring(2, 9);
-  private intervalId: any;
+  private intervalId: ReturnType<typeof setInterval> | undefined;
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+  private platformId = inject(PLATFORM_ID);
 
   ngOnInit() {
     this.longestText = this.texts.reduce((a, b) => a.length > b.length ? a : b, '');
@@ -75,9 +75,9 @@ export class RotatingTextComponent implements OnInit, OnDestroy {
   animateIn(wordIndex: number) {
     const chars = document.querySelectorAll(`[id^="rot-${this.id}-${wordIndex}-"]`);
     if (chars.length) {
-      chars.forEach((el: any) => {
-         el.style.transform = 'translateY(120%)';
-         el.style.opacity = '0';
+      chars.forEach((el) => {
+         (el as HTMLElement).style.transform = 'translateY(120%)';
+         (el as HTMLElement).style.opacity = '0';
       });
       animate(
         chars,

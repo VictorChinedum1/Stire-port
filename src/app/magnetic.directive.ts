@@ -1,12 +1,12 @@
-import { Directive, ElementRef, HostListener, OnInit } from '@angular/core';
+import { Directive, ElementRef, HostListener, OnInit, inject } from '@angular/core';
 import { animate } from 'motion';
 
 @Directive({
-  selector: '[magnetic]',
+  selector: '[appMagnetic]',
   standalone: true
 })
 export class MagneticDirective implements OnInit {
-  constructor(private el: ElementRef<HTMLElement>) {}
+  private el = inject(ElementRef<HTMLElement>);
 
   ngOnInit() {
     this.el.nativeElement.style.willChange = 'transform';

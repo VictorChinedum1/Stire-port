@@ -1,7 +1,6 @@
-import { ChangeDetectionStrategy, Component, AfterViewInit, Inject, PLATFORM_ID, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, AfterViewInit, inject, PLATFORM_ID, OnDestroy } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
-import { MagneticDirective } from './magnetic.directive';
 import { RotatingTextComponent } from './rotating-text.component';
 import { RouterModule, Router } from '@angular/router';
 import { animate, stagger } from 'motion';
@@ -71,9 +70,11 @@ import SplitType from 'split-type';
       </main>
     </div>
 
-    <!-- ABOUT US SECTION (Fold 2) -->
-    <section class="relative z-20 w-full py-24 md:py-40 px-6 md:px-12 bg-[#FAF6F0] text-[#522218] dark:bg-[#3D1A12] dark:text-[#FAF6F0] transition-colors duration-500 shadow-[0_-20px_50px_rgba(0,0,0,0.2)] dark:shadow-[0_-20px_50px_rgba(0,0,0,0.5)]">
-      <div class="about-container max-w-[1500px] mx-auto flex flex-col md:flex-row gap-12 md:gap-24 justify-center">
+    <!-- Stacking Wrapper -->
+    <div class="relative w-full z-20 shadow-[0_-20px_50px_rgba(0,0,0,0.2)] dark:shadow-[0_-20px_50px_rgba(0,0,0,0.5)] bg-black">
+      <!-- ABOUT US SECTION (Fold 2) -->
+      <section id="about-section" class="w-full min-h-[100vh] flex flex-col justify-center py-24 md:py-40 px-6 md:px-12 bg-[#FAF6F0] text-[#522218] dark:bg-[#3D1A12] dark:text-[#FAF6F0] transition-colors duration-500 transform-gpu overflow-hidden">
+        <div class="about-container max-w-[1500px] mx-auto flex flex-col md:flex-row gap-12 md:gap-24 justify-center">
         <!-- Main Content -->
         <div class="w-full max-w-4xl flex flex-col items-start xl:items-center xl:text-center">
           <h2 class="split-text-about font-serif text-3xl sm:text-4xl md:text-5xl lg:text-7xl leading-[1.1] tracking-tight mb-8 uppercase">
@@ -102,10 +103,10 @@ import SplitType from 'split-type';
           </div>
         </div>
       </div>
-    </section>
-    <!-- IMAGE GALLERY SECTION (Fold 3) -->
-    <section class="gallery-section relative z-20 w-full h-screen flex items-center justify-center overflow-hidden bg-transparent">
-      <div class="gallery-wrapper relative overflow-hidden rounded-[40px] md:rounded-[64px] w-[85vw] h-[60vh] md:w-[70vw] md:h-[70vh] will-change-transform transform-gpu">
+      </section>
+      <!-- IMAGE GALLERY SECTION (Fold 3) -->
+      <section class="gallery-section relative z-30 w-full h-screen flex items-center justify-center overflow-hidden bg-transparent">
+        <div class="gallery-wrapper relative overflow-hidden rounded-[40px] md:rounded-[64px] w-[85vw] h-[60vh] md:w-[70vw] md:h-[70vh] will-change-transform transform-gpu shadow-2xl">
         <div class="absolute inset-0 bg-black/30 z-10 gallery-overlay"></div>
         <img src="https://www.image2url.com/r2/default/images/1777029702217-913a0697-fddf-4d87-a93a-066098628650.jpg" alt="Stire Studio Base" class="gallery-bg absolute inset-0 w-full h-full object-cover object-center scale-[1.5] will-change-transform transform-gpu" referrerpolicy="no-referrer">
         
@@ -116,15 +117,17 @@ import SplitType from 'split-type';
              <img src="https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=800&auto=format&fit=crop" class="floating-pic absolute bottom-[10%] right-[5%] md:right-[10%] w-[40vw] md:w-[28vw] rounded-2xl shadow-2xl opacity-0 translate-y-12 rotate-[3deg]" alt="Creative Work 2" referrerpolicy="no-referrer">
              <img src="https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?q=80&w=800&auto=format&fit=crop" class="floating-pic absolute top-[20%] right-[30%] md:right-[35%] w-[25vw] md:w-[15vw] rounded-2xl shadow-2xl opacity-0 translate-y-12 rotate-[6deg]" alt="Creative Work 3" referrerpolicy="no-referrer">
           </div>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   `
 })
 export class HomeComponent implements AfterViewInit, OnDestroy {
   private splits: SplitType[] = [];
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object, private router: Router) {}
+  private platformId = inject(PLATFORM_ID);
+  private router = inject(Router);
 
   goToAbout() {
     this.router.navigate(['/about']);
@@ -305,6 +308,21 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
       duration: 0.8,
       ease: 'power2.out'
     }, 0.4);
+
+    // Stack animation for About section (shrinks and dims as next section comes up)
+    gsap.to('#about-section', {
+      scale: 0.9,
+      opacity: 0.4,
+      scrollTrigger: {
+        trigger: '#about-section',
+        start: 'top top',
+        endTrigger: '.gallery-section',
+        end: 'top top',
+        pin: true,
+        pinSpacing: false,
+        scrub: true
+      }
+    });
 
     // Split text animation for About section
     const splitElements = document.querySelectorAll('.split-text-about');

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, AfterViewInit, Inject, PLATFORM_ID, OnDestroy, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, AfterViewInit, inject, PLATFORM_ID, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -54,7 +54,7 @@ import SplitType from 'split-type';
 export class AboutComponent implements AfterViewInit, OnDestroy {
   private splits: SplitType[] = [];
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+  private platformId = inject(PLATFORM_ID);
 
   ngAfterViewInit() {
     if (!isPlatformBrowser(this.platformId)) return;
