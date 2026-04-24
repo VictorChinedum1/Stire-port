@@ -103,6 +103,22 @@ import SplitType from 'split-type';
         </div>
       </div>
     </section>
+    <!-- IMAGE GALLERY SECTION (Fold 3) -->
+    <section class="gallery-section relative z-20 w-full h-screen flex items-center justify-center overflow-hidden bg-transparent">
+      <div class="gallery-wrapper relative overflow-hidden rounded-[40px] md:rounded-[64px] w-[85vw] h-[60vh] md:w-[70vw] md:h-[70vh] will-change-transform transform-gpu">
+        <div class="absolute inset-0 bg-black/30 z-10 gallery-overlay"></div>
+        <img src="https://www.image2url.com/r2/default/images/1777029702217-913a0697-fddf-4d87-a93a-066098628650.jpg" alt="Stire Studio Base" class="gallery-bg absolute inset-0 w-full h-full object-cover object-center scale-[1.5] will-change-transform transform-gpu" referrerpolicy="no-referrer">
+        
+        <!-- Floating overlay pictures -->
+        <div class="absolute inset-0 z-20 pointer-events-none">
+          <div class="relative w-full h-full max-w-[1400px] mx-auto">
+             <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop" class="floating-pic absolute top-[10%] left-[5%] md:left-[10%] w-[35vw] md:w-[22vw] rounded-2xl shadow-2xl opacity-0 translate-y-12 rotate-[-4deg]" alt="Creative Work 1" referrerpolicy="no-referrer">
+             <img src="https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=800&auto=format&fit=crop" class="floating-pic absolute bottom-[10%] right-[5%] md:right-[10%] w-[40vw] md:w-[28vw] rounded-2xl shadow-2xl opacity-0 translate-y-12 rotate-[3deg]" alt="Creative Work 2" referrerpolicy="no-referrer">
+             <img src="https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?q=80&w=800&auto=format&fit=crop" class="floating-pic absolute top-[20%] right-[30%] md:right-[35%] w-[25vw] md:w-[15vw] rounded-2xl shadow-2xl opacity-0 translate-y-12 rotate-[6deg]" alt="Creative Work 3" referrerpolicy="no-referrer">
+          </div>
+        </div>
+      </div>
+    </section>
   `
 })
 export class HomeComponent implements AfterViewInit, OnDestroy {
@@ -193,10 +209,9 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
         const heroSt = document.querySelector('.hero-st') as HTMLElement | null;
         if (heroSt) {
           heroTl.to(heroSt, {
-            scale: 0.85,
+            yPercent: -40,
             opacity: 0,
-            yPercent: -10,
-            ease: 'power2.inOut',
+            ease: 'none',
             duration: 1
           }, 0);
         }
@@ -232,10 +247,9 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
         const heroSt = document.querySelector('.hero-st') as HTMLElement | null;
         if (heroSt) {
           heroTl.to(heroSt, {
-            scale: 0.9,
+            yPercent: -25,
             opacity: 0,
-            yPercent: -5,
-            ease: 'power2.inOut',
+            ease: 'none',
             duration: 1
           }, 0);
         }
@@ -255,6 +269,42 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
         heroTl.to(['.hero-scroll-1', '.hero-scroll-3'], { opacity: 0, scale: 1.5, duration: 0.2 }, 0.8);
       });
     }
+
+    const galleryTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: '.gallery-section',
+        start: 'center center',
+        end: '+=1500',
+        scrub: 1,
+        pin: true,
+        pinSpacing: true
+      }
+    });
+
+    // The border opens up
+    galleryTl.to('.gallery-wrapper', {
+      width: '100vw',
+      height: '100vh',
+      borderRadius: 0,
+      duration: 1,
+      ease: 'power2.inOut'
+    }, 0);
+
+    // The image zooms in (scale 1.5 to 1)
+    galleryTl.to('.gallery-bg', {
+      scale: 1,
+      duration: 1,
+      ease: 'power2.inOut'
+    }, 0);
+
+    // Floating pictures fade and scale in
+    galleryTl.to('.floating-pic', {
+      opacity: 1,
+      y: 0,
+      stagger: 0.15,
+      duration: 0.8,
+      ease: 'power2.out'
+    }, 0.4);
 
     // Split text animation for About section
     const splitElements = document.querySelectorAll('.split-text-about');
