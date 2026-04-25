@@ -29,14 +29,14 @@ import SplitType from 'split-type';
       <div class="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-32 pb-32">
         <div class="flex flex-col border-t border-[#522218]/20 dark:border-[#FAF6F0]/20 pt-8">
           <h3 class="split-text font-bold tracking-widest text-sm uppercase mb-6 opacity-70">Philosophy</h3>
-          <p class="split-text text-lg md:text-2xl leading-relaxed opacity-90">
+          <p class="split-text-rotate text-lg md:text-2xl leading-relaxed opacity-90">
             Every line of code and every pixel on the screen is placed with deliberate intent. We believe in brutalist elegance—bold structures refined by meticulous detail. We don't just build websites; we architect digital spaces that resonate.
           </p>
         </div>
         
         <div class="flex flex-col border-t border-[#522218]/20 dark:border-[#FAF6F0]/20 pt-8">
           <h3 class="split-text font-bold tracking-widest text-sm uppercase mb-6 opacity-70">Process</h3>
-          <p class="split-text text-lg md:text-2xl leading-relaxed opacity-90">
+          <p class="split-text-rotate text-lg md:text-2xl leading-relaxed opacity-90">
             Our methodology is rooted in collaboration and transparency. From the initial conceptualization phase to final execution, we iteratively refine our ideas. Quality is not a milestone; it is the constant pulse of our work.
           </p>
         </div>
@@ -97,6 +97,44 @@ export class AboutComponent implements AfterViewInit, OnDestroy {
             trigger: el,
             start: 'top 95%', 
             toggleActions: 'play none none reverse' // Rewinds when you scroll up for constant effect
+          }
+        }
+      );
+    });
+
+    const rotateElements = document.querySelectorAll('.split-text-rotate');
+
+    rotateElements.forEach((el) => {
+      const split = new SplitType(el as HTMLElement, { types: 'lines,words' });
+      this.splits.push(split);
+
+      if (split.lines) {
+        split.lines.forEach(line => {
+          (line as HTMLElement).style.overflow = 'hidden';
+          (line as HTMLElement).style.perspective = '400px';
+        });
+      }
+
+      gsap.fromTo(split.words, 
+        {
+          opacity: 0,
+          y: '120%',
+          rotationX: -60,
+          rotationY: 10,
+          transformOrigin: '0% 50% -50'
+        },
+        {
+          opacity: 1,
+          y: '0%',
+          rotationX: 0,
+          rotationY: 0,
+          duration: 1.4,
+          stagger: 0.04,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 95%', 
+            toggleActions: 'play none none reverse'
           }
         }
       );

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, AfterViewInit, inject, PLATFORM_ID, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, AfterViewInit, inject, PLATFORM_ID, OnDestroy, signal } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { RotatingTextComponent } from './rotating-text.component';
@@ -28,6 +28,9 @@ import SplitType from 'split-type';
 
     <!-- HERO SECTION (Fold 1) -->
     <div id="hero-container" class="h-screen flex flex-col w-full relative z-10 will-change-transform transform-gpu overflow-hidden justify-center pt-48 lg:pt-[25vh]">
+      <!-- Particles Canvas -->
+      <canvas id="particle-canvas" class="absolute inset-0 z-0 pointer-events-none opacity-40 dark:opacity-60 transition-opacity duration-1000"></canvas>
+
       <!-- Background ST -->
       <div class="absolute inset-0 flex items-center justify-end pointer-events-none z-0 overflow-hidden right-0">
         <span class="font-display text-[45vw] md:text-[40vw] text-[#522218]/[0.05] dark:text-[#6B2E20] leading-none select-none translate-x-[15%] md:translate-x-[10%] -translate-y-[5%] hero-st opacity-0">
@@ -199,6 +202,74 @@ import SplitType from 'split-type';
         <h1 class="right-text absolute right-[4%] md:right-[8%] text-[10vw] md:text-[8vw] font-serif uppercase tracking-tighter text-[#522218] dark:text-[#FAF6F0] z-10 pointer-events-none transform-gpu origin-right leading-none italic font-light">Bold</h1>
 
       </section>
+
+      <!-- SERVICES SECTION (Fold 4) -->
+      <section id="services-section" class="relative z-40 w-full bg-[#FAF6F0] dark:bg-[#522218] text-[#522218] dark:text-[#FAF6F0] py-24 md:py-40 flex justify-center border-t border-[#522218]/10 dark:border-white/10 transition-colors duration-500 rounded-t-[30px] md:rounded-t-[60px] shadow-[0_-20px_50px_rgba(0,0,0,0.1)] -mt-10 overflow-hidden">
+        <div class="max-w-[1500px] w-full mx-auto px-6 md:px-12">
+            
+            <div class="flex flex-col border-t border-[#522218]/20 dark:border-white/20">
+                @for (item of services; track item.num; let i = $index) {
+                 <div class="service-item w-full border-b border-[#522218]/20 dark:border-white/20 cursor-pointer overflow-hidden flex flex-col justify-end relative transition-all duration-700 ease-[cubic-bezier(0.65,0,0.35,1)] group"
+                      [ngClass]="activeService() === i ? 'pt-32 md:pt-48 pb-10 md:pb-14' : 'pt-10 md:pt-16 pb-6 md:pb-8 hover:bg-[#522218]/5 dark:hover:bg-white/5'"
+                      (click)="activeService.set(i)"
+                 >
+                    <!-- Big huge number -->
+                    <div class="absolute left-[-2%] md:left-4 top-4 md:top-8 pointer-events-none transition-transform duration-700 ease-[cubic-bezier(0.65,0,0.35,1)] z-0"
+                         [ngClass]="activeService() === i ? 'translate-y-0 opacity-100' : 'translate-y-[-5%] opacity-30 dark:opacity-50 group-hover:opacity-100'">
+                       <span class="text-[100px] md:text-[160px] lg:text-[200px] leading-[0.8] tracking-tighter font-sans font-light text-[#522218]/10 dark:text-white/10 drop-shadow-sm">
+                         {{ item.num }}
+                       </span>
+                    </div>
+
+                    <!-- Foreground Content -->
+                    <div class="w-full relative z-10 flex flex-row items-end justify-between md:pl-[40%] lg:pl-[45%]">
+                       <!-- Content Area -->
+                       <div class="flex-1 flex flex-col w-full">
+                          <h3 class="text-xl md:text-2xl lg:text-3xl uppercase tracking-wider font-light text-[#522218] dark:text-white transition-all duration-700"
+                              [ngClass]="activeService() === i ? 'mb-8 md:mb-12' : 'mb-0'">
+                             {{ item.title }}
+                          </h3>
+                          
+                          <div class="grid transition-all duration-700 ease-[cubic-bezier(0.65,0,0.35,1)]"
+                               [ngClass]="activeService() === i ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'">
+                             <div class="overflow-hidden">
+                                <div class="flex flex-col gap-6 max-w-xl md:pt-2">
+                                   <p class="text-[12px] md:text-[14px] text-[#522218]/70 dark:text-white/70 font-light leading-relaxed flex items-start">
+                                      <span class="mr-3 text-[#522218]/40 dark:text-white/40 mt-1 border border-[#522218]/40 dark:border-white/40 rounded-full w-2 h-2 md:w-3 md:h-3 flex-shrink-0 inline-block"></span>
+                                      {{ item.desc }}
+                                   </p>
+                                   <div class="flex flex-col gap-1 text-[10px] md:text-[12px] text-[#522218]/50 dark:text-white/50 font-light ml-5 md:ml-6">
+                                      <div>Location: <span class="text-[#522218]/90 dark:text-white/90">{{ item.location }}</span></div>
+                                      <div>Domain: <span class="text-[#522218]/90 dark:text-white/90">{{ item.domain }}</span></div>
+                                      <div>Work experience: <span class="text-[#522218]/90 dark:text-white/90">{{ item.exp }}</span></div>
+                                   </div>
+                                </div>
+                             </div>
+                          </div>
+                       </div>
+
+                       <!-- Icon Area -->
+                       <div class="ml-4 flex-shrink-0 mb-1 md:mb-2">
+                         <div class="relative w-8 h-8 md:w-10 md:h-10 rounded-full border flex items-center justify-center transition-all duration-700 ease-[cubic-bezier(0.65,0,0.35,1)]"
+                              [ngClass]="activeService() === i 
+                                ? 'bg-[#522218] dark:bg-white border-[#522218] dark:border-white text-[#FAF6F0] dark:text-[#522218]' 
+                                : 'bg-transparent border-[#522218]/20 dark:border-white/20 text-[#522218] dark:text-white group-hover:border-[#522218]/50 dark:group-hover:border-white/50'">
+                            <div class="absolute inset-0 flex items-center justify-center transition-transform duration-700 ease-[cubic-bezier(0.65,0,0.35,1)]"
+                                 [ngClass]="activeService() === i ? 'rotate-180' : 'rotate-0'">
+                               <mat-icon class="absolute transition-all duration-500 font-thin text-[18px] w-[18px] h-[18px] leading-[18px]"
+                                         [ngClass]="activeService() === i ? 'opacity-0 scale-50' : 'opacity-100 scale-100'">add</mat-icon>
+                               <mat-icon class="absolute transition-all duration-500 font-thin text-[18px] w-[18px] h-[18px] leading-[18px]"
+                                         [ngClass]="activeService() === i ? 'opacity-100 scale-100' : 'opacity-0 scale-50'">remove</mat-icon>
+                            </div>
+                         </div>
+                       </div>
+                    </div>
+                 </div>
+               }
+            </div>
+        </div>
+      </section>
+
     </div>
   `
 })
@@ -207,6 +278,15 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
 
   private platformId = inject(PLATFORM_ID);
   private router = inject(Router);
+
+  activeService = signal<number | null>(0);
+
+  services = [
+    { num: '01', title: 'BRAND DESIGNER', location: 'Stockholm', domain: 'Domeniste lauro: notte nome', exp: '4+ years', desc: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Suspendisse in est ante in. Nibh sit amet commodo nulla facilisis nullam vehicula the entolo ullamcorper sit.' },
+    { num: '02', title: 'MARKETING', location: 'London', domain: 'Digital Marketing Strategy', exp: '5+ years', desc: 'Crafting robust marketing strategies that penetrate markets and captivate target audiences globally. We blend data with creativity.' },
+    { num: '03', title: 'VR DESIGNER', location: 'Berlin', domain: 'Virtual Reality Interfacing', exp: '3+ years', desc: 'Designing immersive virtual realities that redefine interaction. Specializing in spatial UI and environment conceptualization.' },
+    { num: '04', title: 'WEB DEVELOP', location: 'Remote', domain: 'Frontend Engineering', exp: '6+ years', desc: 'Building high-performance web applications with brutalist aesthetics and meticulous motion design. Pushing browser capabilities.' },
+  ];
 
   goToAbout() {
     this.router.navigate(['/about']);
@@ -262,6 +342,105 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
     );
 
     this.setupScrollAnimations();
+    this.initParticles();
+  }
+
+  initParticles() {
+    if (!isPlatformBrowser(this.platformId)) return;
+
+    const canvas = document.getElementById('particle-canvas') as HTMLCanvasElement;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    let width = window.innerWidth;
+    let height = window.innerHeight;
+    canvas.width = width;
+    canvas.height = height;
+
+    let mouseX = width / 2;
+    let mouseY = height / 2;
+    
+    // Smooth mouse coordinates for physics
+    let targetMouseX = mouseX;
+    let targetMouseY = mouseY;
+
+    const onMouseMove = (e: MouseEvent) => {
+      targetMouseX = e.clientX;
+      targetMouseY = e.clientY;
+    };
+
+    window.addEventListener('mousemove', onMouseMove);
+
+    const onResize = () => {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width;
+      canvas.height = height;
+    };
+
+    window.addEventListener('resize', onResize);
+
+    const particles: any[] = [];
+    const particleCount = width > 768 ? 100 : 40;
+
+    for (let i = 0; i < particleCount; i++) {
+        particles.push({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            size: Math.random() * 2 + 0.5,
+            speedX: (Math.random() - 0.5) * 0.5,
+            speedY: (Math.random() - 0.5) * 0.5,
+            z: Math.random() * 2 + 0.5 // Z depth for parallax
+        });
+    }
+
+    let animationFrameId: number;
+
+    const animateParticles = () => {
+        ctx.clearRect(0, 0, width, height);
+
+        // Interpolate mouse for smoother movement
+        mouseX += (targetMouseX - mouseX) * 0.05;
+        mouseY += (targetMouseY - mouseY) * 0.05;
+
+        // Get theme color dynamically
+        const isDark = document.documentElement.classList.contains('dark');
+        ctx.fillStyle = isDark ? 'rgba(250, 246, 240, 0.4)' : 'rgba(82, 34, 24, 0.4)';
+
+        particles.forEach(p => {
+            p.x += p.speedX;
+            p.y += p.speedY;
+
+            // Parallax offset based on mouse position
+            const dx = (mouseX - width / 2) * p.z * 0.05;
+            const dy = (mouseY - height / 2) * p.z * 0.05;
+
+            const drawX = p.x - dx;
+            const drawY = p.y - dy;
+
+            // Wrap around logic
+            if (p.x < -100) p.x = width + 100;
+            if (p.x > width + 100) p.x = -100;
+            if (p.y < -100) p.y = height + 100;
+            if (p.y > height + 100) p.y = -100;
+
+            ctx.beginPath();
+            ctx.arc(drawX, drawY, p.size * (1 + p.z * 0.2), 0, Math.PI * 2);
+            ctx.fill();
+        });
+
+        animationFrameId = requestAnimationFrame(animateParticles);
+    };
+
+    animateParticles();
+
+    // Store cleanup function
+    (this as any).cleanupParticles = () => {
+      window.removeEventListener('mousemove', onMouseMove);
+      window.removeEventListener('resize', onResize);
+      cancelAnimationFrame(animationFrameId);
+    };
   }
 
   setupScrollAnimations() {
@@ -395,14 +574,23 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
       ease: 'power2.inOut'
     }, 0);
 
-    // Stagger in the works elements (button, cards)
-    galleryTl.to(['.works-btn', '.work-card'], {
+    // Stagger in the first row of elements (button, first 2 cards)
+    galleryTl.to(['.works-btn', '.work-card:nth-child(1)', '.work-card:nth-child(2)'], {
       y: 0,
       opacity: 1,
       duration: 0.8,
       stagger: 0.15,
       ease: 'power3.out'
     }, 0.8);
+
+    // Animate the remaining cards coming in as they scroll up
+    galleryTl.to('.work-card:nth-child(n+3)', {
+      y: 0,
+      opacity: 1,
+      duration: 0.8,
+      stagger: 0.5,
+      ease: 'power3.out'
+    }, 1.2);
 
     // Scroll the projects up
     galleryTl.to('.works-grid', {
@@ -416,7 +604,7 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
       },
       duration: 2.5,
       ease: 'none'
-    });
+    }, 1.0);
 
 
     // Stack animation for About section (shrinks and dims as next section comes up)
@@ -433,6 +621,36 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
         scrub: true
       }
     });
+
+    // Stack animation for Gallery section entering Services section
+    gsap.to('.gallery-wrapper', {
+      scale: 0.9,
+      opacity: 0.4,
+      yPercent: 20,
+      scrollTrigger: {
+        trigger: '#services-section',
+        start: 'top bottom',
+        end: 'top top',
+        scrub: true
+      }
+    });
+
+    // Fade in animation for Service Items
+    gsap.fromTo('.service-item', 
+      { opacity: 0, y: 40 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        stagger: 0.15,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: '#services-section',
+          start: 'top 75%',
+          toggleActions: 'play none none reverse'
+        }
+      }
+    );
 
     // Split text animation for About section
     const splitElements = document.querySelectorAll('.split-text-about');
@@ -488,6 +706,10 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
     if (!isPlatformBrowser(this.platformId)) return;
     this.splits.forEach(s => s.revert());
     ScrollTrigger.getAll().forEach(t => t.kill());
+    
+    if ((this as any).cleanupParticles) {
+      (this as any).cleanupParticles();
+    }
   }
 }
 
