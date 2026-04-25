@@ -111,36 +111,84 @@ import SplitType from 'split-type';
         <h1 class="left-text absolute left-[4%] md:left-[8%] text-[10vw] md:text-[8vw] font-serif uppercase tracking-tighter text-[#522218] dark:text-[#FAF6F0] z-10 pointer-events-none transform-gpu origin-left leading-none italic font-light">Craft</h1>
 
         <!-- Middle Image Container -->
-        <div class="gallery-wrapper relative overflow-hidden rounded-[30px] md:rounded-[40px] w-[50vw] h-[45vh] md:w-[30vw] md:h-[60vh] will-change-transform transform-gpu shadow-2xl z-20">
-          <div class="absolute inset-0 bg-black/10 z-10 gallery-overlay opacity-100"></div>
-          <div class="absolute inset-0 bg-black/60 z-[15] works-overlay opacity-0"></div>
-          <img src="https://www.image2url.com/r2/default/images/1777029702217-913a0697-fddf-4d87-a93a-066098628650.jpg" alt="Stire Studio Base" class="gallery-bg absolute inset-0 w-full h-full object-cover object-center scale-[1.5] will-change-transform transform-gpu" referrerpolicy="no-referrer">
+        <div class="gallery-wrapper relative overflow-hidden rounded-[30px] md:rounded-[40px] w-[50vw] h-[45vh] md:w-[30vw] md:h-[60vh] will-change-transform transform-gpu shadow-2xl z-20 bg-black">
           
           <!-- Works Content (Appears after expansion) -->
           <div class="works-content absolute inset-0 z-30 flex flex-col lg:flex-row opacity-0 pointer-events-none p-6 md:p-12 lg:p-24 pb-8 overflow-hidden h-full">
             
             <!-- Left Column: Title & Button -->
             <div class="w-full lg:w-[35%] flex flex-col justify-center items-start text-white mb-8 lg:mb-0 lg:pl-8">
-              <h3 class="works-title uppercase tracking-[0.2em] text-xs md:text-sm mb-6 opacity-0 translate-y-4">Featured Work</h3>
-              <button class="works-btn flex items-center gap-4 px-6 md:px-8 py-3 md:py-4 border border-white/30 rounded-[100px] hover:bg-white hover:text-black transition-colors duration-300 opacity-0 translate-y-4 shadow-xl backdrop-blur-sm">
-                <span class="text-[10px] md:text-xs tracking-widest font-medium uppercase">All Work</span>
-                <span class="text-[10px] md:text-xs opacity-60">11</span>
-                <mat-icon class="text-sm md:text-base w-4 h-4 md:w-5 md:h-5">arrow_forward</mat-icon>
+              <button class="works-btn flex items-center gap-4 px-6 md:px-8 py-3 md:py-4 border border-white/30 rounded-[100px] hover:bg-white hover:text-black transition-colors duration-300 opacity-0 translate-y-4 shadow-xl backdrop-blur-sm group">
+                <span class="text-[10px] md:text-xs tracking-widest font-medium uppercase">Our Works</span>
+                <span class="text-[10px] md:text-xs opacity-60 group-hover:opacity-100 transition-opacity">11</span>
+                <mat-icon class="text-sm md:text-base w-4 h-4 md:w-5 md:h-5 transform group-hover:translate-x-1 transition-transform">arrow_forward</mat-icon>
               </button>
             </div>
 
-            <!-- Right Column: Mock Works -->
-            <div class="w-full lg:w-[65%] flex gap-4 md:gap-8 h-full">
-              <!-- Item 1 (Dark Theme) -->
-              <div class="work-card flex-1 rounded-2xl md:rounded-3xl overflow-hidden relative shadow-2xl bg-[#0f0f0f] h-[80%] self-end mt-auto opacity-0 translate-y-12">
-                <img src="https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover opacity-80 mix-blend-lighten" alt="Work 1" referrerpolicy="no-referrer">
-                <div class="absolute bottom-6 left-6 text-white uppercase text-sm md:text-xl font-bold tracking-tight">Monster</div>
-              </div>
-              <!-- Item 2 (Light Theme) -->
-              <div class="work-card flex-1 rounded-2xl md:rounded-[40px] overflow-hidden relative shadow-2xl bg-[#f0f0f0] h-[95%] mb-auto opacity-0 translate-y-12">
-                <div class="absolute inset-0 opacity-[0.03]" style="background-image: linear-gradient(#000 1px, transparent 1px), linear-gradient(90deg, #000 1px, transparent 1px); background-size: 20px 20px;"></div>
-                <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=800&auto=format&fit=crop" class="w-[120%] h-[120%] object-cover absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" alt="Work 2" referrerpolicy="no-referrer">
-                <div class="absolute bottom-6 left-6 text-black uppercase text-sm md:text-xl font-bold tracking-tight">Vizcom</div>
+            <!-- Right Column: Works Grid -->
+            <div class="works-right-col w-full lg:w-[65%] h-[50vh] lg:h-full overflow-hidden pointer-events-auto relative">
+              <div class="works-grid absolute top-12 lg:top-24 left-0 right-0 grid grid-cols-2 gap-4 md:gap-8 w-full pb-32 lg:pb-64">
+                <!-- Item 1 (Dark Theme) -->
+                <div class="work-card group rounded-2xl md:rounded-3xl overflow-hidden relative shadow-2xl bg-[#0f0f0f] aspect-[3/4] opacity-0 translate-y-12 cursor-pointer mt-12 lg:mt-24">
+                  <img src="https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover opacity-80 mix-blend-lighten transition-transform duration-700 group-hover:scale-110" alt="Work 1" referrerpolicy="no-referrer">
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
+                  <div class="absolute bottom-6 left-6 right-6 z-20 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+                    <div class="text-white uppercase text-sm md:text-xl font-bold tracking-tight mb-1">Monster Energy</div>
+                    <div class="text-white/0 group-hover:text-white/80 text-xs md:text-sm font-light max-h-0 group-hover:max-h-20 overflow-hidden transition-all duration-500 ease-in-out">
+                      Bold typography and high-performance brand identity.
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Item 2 (Light Theme) -->
+                <div class="work-card group rounded-2xl md:rounded-[40px] overflow-hidden relative shadow-2xl bg-[#f0f0f0] aspect-[3/4] opacity-0 translate-y-12 cursor-pointer">
+                  <div class="absolute inset-0 opacity-[0.03] z-0" style="background-image: linear-gradient(#000 1px, transparent 1px), linear-gradient(90deg, #000 1px, transparent 1px); background-size: 20px 20px;"></div>
+                  <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=800&auto=format&fit=crop" class="w-[120%] h-[120%] object-cover absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-transform duration-700 group-hover:scale-110 z-0" alt="Work 2" referrerpolicy="no-referrer">
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
+                  <div class="absolute bottom-6 left-6 right-6 z-20 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+                    <div class="text-black group-hover:text-white uppercase text-sm md:text-xl font-bold tracking-tight mb-1 transition-colors duration-500">Vizcom</div>
+                    <div class="text-white/0 group-hover:text-white/80 text-xs md:text-sm font-light max-h-0 group-hover:max-h-20 overflow-hidden transition-all duration-500 ease-in-out">
+                      AI-powered automotive rendering interface.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Item 3 (Dark Theme) -->
+                <div class="work-card group rounded-2xl md:rounded-3xl overflow-hidden relative shadow-2xl bg-[#0f0f0f] aspect-[3/4] opacity-0 translate-y-12 cursor-pointer mt-12 lg:mt-24">
+                  <img src="https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover opacity-80 mix-blend-lighten transition-transform duration-700 group-hover:scale-110" alt="Work 3" referrerpolicy="no-referrer">
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
+                  <div class="absolute bottom-6 left-6 right-6 z-20 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+                    <div class="text-white uppercase text-sm md:text-xl font-bold tracking-tight mb-1">Minimalism</div>
+                    <div class="text-white/0 group-hover:text-white/80 text-xs md:text-sm font-light max-h-0 group-hover:max-h-20 overflow-hidden transition-all duration-500 ease-in-out">
+                      Clean lines and abstract forms.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Item 4 (Abstract Theme) -->
+                <div class="work-card group rounded-2xl md:rounded-[40px] overflow-hidden relative shadow-2xl bg-[#0a0a0a] aspect-[3/4] opacity-0 translate-y-12 cursor-pointer">
+                  <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover opacity-80 transition-transform duration-700 group-hover:scale-110" alt="Work 4" referrerpolicy="no-referrer">
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
+                  <div class="absolute bottom-6 left-6 right-6 z-20 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+                    <div class="text-white uppercase text-sm md:text-xl font-bold tracking-tight mb-1">Spatial</div>
+                    <div class="text-white/0 group-hover:text-white/80 text-xs md:text-sm font-light max-h-0 group-hover:max-h-20 overflow-hidden transition-all duration-500 ease-in-out">
+                      3D environments and immersive spaces.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Item 5 (Branding) -->
+                <div class="work-card group rounded-2xl md:rounded-3xl overflow-hidden relative shadow-2xl bg-[#f0f0f0] aspect-[3/4] opacity-0 translate-y-12 cursor-pointer mt-12 lg:mt-24">
+                  <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Work 5" referrerpolicy="no-referrer">
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
+                  <div class="absolute bottom-6 left-6 right-6 z-20 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+                    <div class="text-black group-hover:text-white uppercase text-sm md:text-xl font-bold tracking-tight mb-1 transition-colors duration-500">Aura</div>
+                    <div class="text-white/0 group-hover:text-white/80 text-xs md:text-sm font-light max-h-0 group-hover:max-h-20 overflow-hidden transition-all duration-500 ease-in-out">
+                      Elevating natural luxury.
+                    </div>
+                  </div>
+                </div>
+
               </div>
             </div>
 
@@ -308,41 +356,12 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
       scrollTrigger: {
         trigger: '.gallery-section',
         start: 'center center',
-        end: '+=1500',
+        end: '+=2500',
         scrub: 1,
         pin: true,
         pinSpacing: true
       }
     });
-
-    // The image wrapper expands
-    galleryTl.to('.gallery-wrapper', {
-      width: '100vw',
-      height: '100vh',
-      borderRadius: 0,
-      duration: 1,
-      ease: 'power2.inOut'
-    }, 0);
-
-    // The image bg zooms out to normal
-    galleryTl.to('.gallery-bg', {
-      scale: 1,
-      duration: 1,
-      ease: 'power2.inOut'
-    }, 0);
-    
-    // Clear overlay
-    galleryTl.to('.gallery-overlay', {
-      opacity: 0,
-      duration: 0.8
-    }, 0);
-
-    // Fade in dark works overlay to make content readable
-    galleryTl.to('.works-overlay', {
-      opacity: 1,
-      duration: 0.8,
-      ease: 'power2.inOut'
-    }, 0.5);
 
     // Left text smoothly slides left and fades out
     galleryTl.to('.left-text', {
@@ -367,14 +386,37 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
       duration: 0.1
     }, 0.8);
 
-    // Stagger in the works elements (title, button, cards)
-    galleryTl.to(['.works-title', '.works-btn', '.work-card'], {
+    // The image wrapper expands
+    galleryTl.to('.gallery-wrapper', {
+      width: '100vw',
+      height: '100vh',
+      borderRadius: 0,
+      duration: 1,
+      ease: 'power2.inOut'
+    }, 0);
+
+    // Stagger in the works elements (button, cards)
+    galleryTl.to(['.works-btn', '.work-card'], {
       y: 0,
       opacity: 1,
       duration: 0.8,
       stagger: 0.15,
       ease: 'power3.out'
     }, 0.8);
+
+    // Scroll the projects up
+    galleryTl.to('.works-grid', {
+      y: () => {
+        const grid = document.querySelector('.works-grid') as HTMLElement;
+        const col = document.querySelector('.works-right-col') as HTMLElement;
+        if (grid && col) {
+          return -Math.max(0, grid.offsetHeight - col.offsetHeight + 100);
+        }
+        return -500;
+      },
+      duration: 2.5,
+      ease: 'none'
+    });
 
 
     // Stack animation for About section (shrinks and dims as next section comes up)

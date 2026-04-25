@@ -25,11 +25,43 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
         <!-- Right Side Container (Nav Links + Actions) -->
         <div class="flex items-center space-x-6 lg:space-x-12 ml-auto">
           <!-- Desktop Links -->
-          <ul class="hidden lg:flex items-center space-x-8 xl:space-x-12 text-[12px] font-bold tracking-[0.2em] uppercase opacity-70">
-            <li routerLink="/" class="cursor-pointer transition-transform duration-300 hover:-translate-y-1 hover:scale-[1.15] hover:rotate-[5deg] hover:opacity-100 origin-center">Home</li>
-            <li routerLink="/about" class="cursor-pointer transition-transform duration-300 hover:-translate-y-1 hover:scale-[1.15] hover:rotate-[5deg] hover:opacity-100 origin-center">About Us</li>
-            <li class="cursor-pointer transition-transform duration-300 hover:-translate-y-1 hover:scale-[1.15] hover:rotate-[5deg] hover:opacity-100 origin-center">Work</li>
-            <li class="cursor-pointer transition-transform duration-300 hover:-translate-y-1 hover:scale-[1.15] hover:rotate-[5deg] hover:opacity-100 origin-center">Services</li>
+          <ul class="hidden lg:flex items-center space-x-8 xl:space-x-12">
+            <li routerLink="/" class="group relative cursor-pointer">
+              <div class="transition-transform duration-300 group-hover:-translate-y-1 group-hover:scale-[1.15] group-hover:rotate-[5deg] origin-center opacity-70 group-hover:opacity-100 text-[12px] font-bold tracking-[0.2em] uppercase">Home</div>
+              <div class="absolute top-full mt-3 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-y-2 group-hover:translate-y-0 pointer-events-none z-50 flex flex-col items-center min-w-max">
+                <div class="w-2 h-2 bg-[#522218] dark:bg-[#FAF6F0] rotate-45 mb-[-4px] rounded-tl-[1px]"></div>
+                <div class="bg-[#522218] text-[#FAF6F0] dark:bg-[#FAF6F0] dark:text-[#522218] text-[10px] tracking-wide px-3 py-1.5 rounded-[6px] shadow-xl whitespace-nowrap font-medium normal-case">
+                  Return to baseline
+                </div>
+              </div>
+            </li>
+            <li routerLink="/about" class="group relative cursor-pointer">
+              <div class="transition-transform duration-300 group-hover:-translate-y-1 group-hover:scale-[1.15] group-hover:rotate-[5deg] origin-center opacity-70 group-hover:opacity-100 text-[12px] font-bold tracking-[0.2em] uppercase">About Us</div>
+              <div class="absolute top-full mt-3 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-y-2 group-hover:translate-y-0 pointer-events-none z-50 flex flex-col items-center min-w-max">
+                <div class="w-2 h-2 bg-[#522218] dark:bg-[#FAF6F0] rotate-45 mb-[-4px] rounded-tl-[1px]"></div>
+                <div class="bg-[#522218] text-[#FAF6F0] dark:bg-[#FAF6F0] dark:text-[#522218] text-[10px] tracking-wide px-3 py-1.5 rounded-[6px] shadow-xl whitespace-nowrap font-medium normal-case">
+                  Our core philosophy
+                </div>
+              </div>
+            </li>
+            <li class="group relative cursor-pointer">
+              <div class="transition-transform duration-300 group-hover:-translate-y-1 group-hover:scale-[1.15] group-hover:rotate-[5deg] origin-center opacity-70 group-hover:opacity-100 text-[12px] font-bold tracking-[0.2em] uppercase">Work</div>
+              <div class="absolute top-full mt-3 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-y-2 group-hover:translate-y-0 pointer-events-none z-50 flex flex-col items-center min-w-max">
+                <div class="w-2 h-2 bg-[#522218] dark:bg-[#FAF6F0] rotate-45 mb-[-4px] rounded-tl-[1px]"></div>
+                <div class="bg-[#522218] text-[#FAF6F0] dark:bg-[#FAF6F0] dark:text-[#522218] text-[10px] tracking-wide px-3 py-1.5 rounded-[6px] shadow-xl whitespace-nowrap font-medium normal-case">
+                  Featured case studies
+                </div>
+              </div>
+            </li>
+            <li class="group relative cursor-pointer">
+              <div class="transition-transform duration-300 group-hover:-translate-y-1 group-hover:scale-[1.15] group-hover:rotate-[5deg] origin-center opacity-70 group-hover:opacity-100 text-[12px] font-bold tracking-[0.2em] uppercase">Services</div>
+              <div class="absolute top-full mt-3 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-y-2 group-hover:translate-y-0 pointer-events-none z-50 flex flex-col items-center min-w-max">
+                <div class="w-2 h-2 bg-[#522218] dark:bg-[#FAF6F0] rotate-45 mb-[-4px] rounded-tl-[1px]"></div>
+                <div class="bg-[#522218] text-[#FAF6F0] dark:bg-[#FAF6F0] dark:text-[#522218] text-[10px] tracking-wide px-3 py-1.5 rounded-[6px] shadow-xl whitespace-nowrap font-medium normal-case">
+                  Solutions & capabilities
+                </div>
+              </div>
+            </li>
           </ul>
 
           <!-- Right Side Actions -->
