@@ -105,20 +105,51 @@ import SplitType from 'split-type';
       </div>
       </section>
       <!-- IMAGE GALLERY SECTION (Fold 3) -->
-      <section class="gallery-section relative z-30 w-full h-screen flex items-center justify-center overflow-hidden bg-transparent">
-        <div class="gallery-wrapper relative overflow-hidden rounded-[40px] md:rounded-[64px] w-[85vw] h-[60vh] md:w-[70vw] md:h-[70vh] will-change-transform transform-gpu shadow-2xl">
-        <div class="absolute inset-0 bg-black/30 z-10 gallery-overlay"></div>
-        <img src="https://www.image2url.com/r2/default/images/1777029702217-913a0697-fddf-4d87-a93a-066098628650.jpg" alt="Stire Studio Base" class="gallery-bg absolute inset-0 w-full h-full object-cover object-center scale-[1.5] will-change-transform transform-gpu" referrerpolicy="no-referrer">
+      <section class="gallery-section relative z-30 w-full h-screen flex flex-row items-center justify-center overflow-hidden bg-[#FAF6F0] dark:bg-[#3D1A12] transition-colors duration-500">
         
-        <!-- Floating overlay pictures -->
-        <div class="absolute inset-0 z-20 pointer-events-none">
-          <div class="relative w-full h-full max-w-[1400px] mx-auto">
-             <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop" class="floating-pic absolute top-[10%] left-[5%] md:left-[10%] w-[35vw] md:w-[22vw] rounded-2xl shadow-2xl opacity-0 translate-y-12 rotate-[-4deg]" alt="Creative Work 1" referrerpolicy="no-referrer">
-             <img src="https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=800&auto=format&fit=crop" class="floating-pic absolute bottom-[10%] right-[5%] md:right-[10%] w-[40vw] md:w-[28vw] rounded-2xl shadow-2xl opacity-0 translate-y-12 rotate-[3deg]" alt="Creative Work 2" referrerpolicy="no-referrer">
-             <img src="https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?q=80&w=800&auto=format&fit=crop" class="floating-pic absolute top-[20%] right-[30%] md:right-[35%] w-[25vw] md:w-[15vw] rounded-2xl shadow-2xl opacity-0 translate-y-12 rotate-[6deg]" alt="Creative Work 3" referrerpolicy="no-referrer">
-          </div>
+        <!-- Left Text -->
+        <h1 class="left-text absolute left-[4%] md:left-[8%] text-[10vw] md:text-[8vw] font-serif uppercase tracking-tighter text-[#522218] dark:text-[#FAF6F0] z-10 pointer-events-none transform-gpu origin-left leading-none italic font-light">Craft</h1>
+
+        <!-- Middle Image Container -->
+        <div class="gallery-wrapper relative overflow-hidden rounded-[30px] md:rounded-[40px] w-[50vw] h-[45vh] md:w-[30vw] md:h-[60vh] will-change-transform transform-gpu shadow-2xl z-20">
+          <div class="absolute inset-0 bg-black/10 z-10 gallery-overlay opacity-100"></div>
+          <div class="absolute inset-0 bg-black/60 z-[15] works-overlay opacity-0"></div>
+          <img src="https://www.image2url.com/r2/default/images/1777029702217-913a0697-fddf-4d87-a93a-066098628650.jpg" alt="Stire Studio Base" class="gallery-bg absolute inset-0 w-full h-full object-cover object-center scale-[1.5] will-change-transform transform-gpu" referrerpolicy="no-referrer">
+          
+          <!-- Works Content (Appears after expansion) -->
+          <div class="works-content absolute inset-0 z-30 flex flex-col lg:flex-row opacity-0 pointer-events-none p-6 md:p-12 lg:p-24 pb-8 overflow-hidden h-full">
+            
+            <!-- Left Column: Title & Button -->
+            <div class="w-full lg:w-[35%] flex flex-col justify-center items-start text-white mb-8 lg:mb-0 lg:pl-8">
+              <h3 class="works-title uppercase tracking-[0.2em] text-xs md:text-sm mb-6 opacity-0 translate-y-4">Featured Work</h3>
+              <button class="works-btn flex items-center gap-4 px-6 md:px-8 py-3 md:py-4 border border-white/30 rounded-[100px] hover:bg-white hover:text-black transition-colors duration-300 opacity-0 translate-y-4 shadow-xl backdrop-blur-sm">
+                <span class="text-[10px] md:text-xs tracking-widest font-medium uppercase">All Work</span>
+                <span class="text-[10px] md:text-xs opacity-60">11</span>
+                <mat-icon class="text-sm md:text-base w-4 h-4 md:w-5 md:h-5">arrow_forward</mat-icon>
+              </button>
+            </div>
+
+            <!-- Right Column: Mock Works -->
+            <div class="w-full lg:w-[65%] flex gap-4 md:gap-8 h-full">
+              <!-- Item 1 (Dark Theme) -->
+              <div class="work-card flex-1 rounded-2xl md:rounded-3xl overflow-hidden relative shadow-2xl bg-[#0f0f0f] h-[80%] self-end mt-auto opacity-0 translate-y-12">
+                <img src="https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover opacity-80 mix-blend-lighten" alt="Work 1" referrerpolicy="no-referrer">
+                <div class="absolute bottom-6 left-6 text-white uppercase text-sm md:text-xl font-bold tracking-tight">Monster</div>
+              </div>
+              <!-- Item 2 (Light Theme) -->
+              <div class="work-card flex-1 rounded-2xl md:rounded-[40px] overflow-hidden relative shadow-2xl bg-[#f0f0f0] h-[95%] mb-auto opacity-0 translate-y-12">
+                <div class="absolute inset-0 opacity-[0.03]" style="background-image: linear-gradient(#000 1px, transparent 1px), linear-gradient(90deg, #000 1px, transparent 1px); background-size: 20px 20px;"></div>
+                <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=800&auto=format&fit=crop" class="w-[120%] h-[120%] object-cover absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" alt="Work 2" referrerpolicy="no-referrer">
+                <div class="absolute bottom-6 left-6 text-black uppercase text-sm md:text-xl font-bold tracking-tight">Vizcom</div>
+              </div>
+            </div>
+
           </div>
         </div>
+
+        <!-- Right Text -->
+        <h1 class="right-text absolute right-[4%] md:right-[8%] text-[10vw] md:text-[8vw] font-serif uppercase tracking-tighter text-[#522218] dark:text-[#FAF6F0] z-10 pointer-events-none transform-gpu origin-right leading-none italic font-light">Bold</h1>
+
       </section>
     </div>
   `
@@ -284,7 +315,7 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
       }
     });
 
-    // The border opens up
+    // The image wrapper expands
     galleryTl.to('.gallery-wrapper', {
       width: '100vw',
       height: '100vh',
@@ -293,21 +324,58 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
       ease: 'power2.inOut'
     }, 0);
 
-    // The image zooms in (scale 1.5 to 1)
+    // The image bg zooms out to normal
     galleryTl.to('.gallery-bg', {
       scale: 1,
       duration: 1,
       ease: 'power2.inOut'
     }, 0);
+    
+    // Clear overlay
+    galleryTl.to('.gallery-overlay', {
+      opacity: 0,
+      duration: 0.8
+    }, 0);
 
-    // Floating pictures fade and scale in
-    galleryTl.to('.floating-pic', {
+    // Fade in dark works overlay to make content readable
+    galleryTl.to('.works-overlay', {
       opacity: 1,
-      y: 0,
-      stagger: 0.15,
       duration: 0.8,
-      ease: 'power2.out'
-    }, 0.4);
+      ease: 'power2.inOut'
+    }, 0.5);
+
+    // Left text smoothly slides left and fades out
+    galleryTl.to('.left-text', {
+      x: '-40vw',
+      opacity: 0,
+      duration: 0.7,
+      ease: 'power3.out'
+    }, 0);
+
+    // Right text smoothly slides right and fades out
+    galleryTl.to('.right-text', {
+      x: '40vw',
+      opacity: 0,
+      duration: 0.7,
+      ease: 'power3.out'
+    }, 0);
+
+    // Show works content
+    galleryTl.to('.works-content', {
+      opacity: 1,
+      pointerEvents: 'auto',
+      duration: 0.1
+    }, 0.8);
+
+    // Stagger in the works elements (title, button, cards)
+    galleryTl.to(['.works-title', '.works-btn', '.work-card'], {
+      y: 0,
+      opacity: 1,
+      duration: 0.8,
+      stagger: 0.15,
+      ease: 'power3.out'
+    }, 0.8);
+
 
     // Stack animation for About section (shrinks and dims as next section comes up)
     gsap.to('#about-section', {

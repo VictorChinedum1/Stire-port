@@ -13,6 +13,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
   selector: 'app-root',
   imports: [CommonModule, MatIconModule, MagneticDirective, RouterModule],
   template: `
+    <div class="progress-bar fixed top-0 left-0 h-1 md:h-[6px] bg-[#522218]/80 dark:bg-[#FAF6F0]/80 z-[120] origin-left scale-x-0 w-full rounded-r-full backdrop-blur-md transition-colors duration-500"></div>
     <div class="bg-[#FAF6F0] min-h-screen text-[#522218] dark:bg-[#522218] dark:text-[#FAF6F0] transition-colors duration-500 flex flex-col font-sans relative overflow-x-hidden">
       <!-- Fixed Navbar -->
       <nav class="hero-nav opacity-0 fixed top-0 left-0 flex items-center justify-between px-6 py-6 md:px-12 md:py-8 z-[100] w-full">
@@ -92,6 +93,17 @@ export class App implements AfterViewInit {
     });
 
     gsap.ticker.lagSmoothing(0);
+
+    // Progress Bar Animation
+    gsap.to('.progress-bar', {
+      scaleX: 1,
+      ease: 'none',
+      scrollTrigger: {
+        start: 0,
+        end: 'max',
+        scrub: 0.3
+      }
+    });
 
     // Fade in Navbar
     animate('.hero-nav', 
