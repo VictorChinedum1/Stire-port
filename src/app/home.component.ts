@@ -161,13 +161,18 @@ import SplitType from "split-type";
         >
           <!-- Main Content -->
           <div
-            class="w-full max-w-4xl flex flex-col items-start xl:items-center xl:text-center"
+            class="w-full max-w-4xl flex flex-col items-start xl:items-center xl:text-center relative"
           >
+            <!-- Decorative Quote Icon -->
+            <mat-icon
+              class="about-quote-icon absolute -top-16 -left-8 md:-top-24 md:-left-16 text-[120px] md:text-[200px] w-auto h-auto leading-none opacity-5 text-[#522218] dark:text-[#FAF6F0] transform-gpu pointer-events-none -scale-x-100"
+              >format_quote</mat-icon
+            >
             <app-split-text
               className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-7xl leading-[1.1] tracking-tight mb-8 uppercase text-left xl:text-center"
-              splitType="lines,words"
-              [delay]="30"
-              [duration]="1"
+              splitType="words"
+              [delay]="100"
+              [duration]="1.5"
               textAlign="left xl:text-center"
             >
               <span class="italic font-light">driven by</span> purpose.
@@ -175,7 +180,7 @@ import SplitType from "split-type";
             <app-split-text
               className="font-sans text-base md:text-xl lg:text-2xl max-w-3xl opacity-80 leading-relaxed mb-12 text-left xl:text-center"
               text="Stire was founded on the belief that brands should not only stand out but move people. We combine brutalist aesthetics with refined typography to craft digital experiences that leave a lasting mark, pushing boundaries to redefine what is possible on the web."
-              splitType="lines,words"
+              splitType="chars"
               [delay]="20"
               [duration]="1"
               textAlign="left xl:text-center"
@@ -219,6 +224,12 @@ import SplitType from "split-type";
           </div>
         </div>
       </section>
+
+      <!-- Spacer to create delay before next section overlaps -->
+      <div
+        class="w-full h-[80vh] md:h-[100vh] pointer-events-none bg-black"
+      ></div>
+
       <!-- IMAGE GALLERY SECTION (Fold 3) -->
       <section
         class="gallery-section relative z-30 w-full h-screen flex flex-row items-center justify-center overflow-hidden bg-[#FAF6F0] dark:bg-[#3D1A12] transition-colors duration-500"
@@ -232,8 +243,15 @@ import SplitType from "split-type";
 
         <!-- Middle Image Container -->
         <div
-          class="gallery-wrapper relative overflow-hidden rounded-[30px] md:rounded-[40px] w-[50vw] h-[45vh] md:w-[30vw] md:h-[60vh] will-change-transform transform-gpu shadow-2xl z-20 bg-black"
+          class="gallery-wrapper relative overflow-hidden rounded-[20px] w-16 h-16 md:w-20 md:h-20 will-change-transform transform-gpu shadow-xl z-20 bg-black flex items-center justify-center"
         >
+          <!-- Initial S -->
+          <div
+            class="gallery-initial-s absolute inset-0 flex items-center justify-center font-serif text-4xl md:text-5xl text-white pointer-events-none transition-opacity duration-300 italic font-medium z-40"
+          >
+            s
+          </div>
+
           <!-- Works Content (Appears after expansion) -->
           <div
             class="works-content absolute inset-0 z-30 flex flex-col lg:flex-row opacity-0 pointer-events-none p-6 md:p-12 lg:p-24 pb-8 overflow-hidden h-full"
@@ -433,7 +451,10 @@ import SplitType from "split-type";
         id="services-section"
         class="relative z-[45] w-full bg-[#FAF6F0] dark:bg-[#522218] text-[#522218] dark:text-[#FAF6F0] py-24 md:py-40 flex justify-center transition-colors duration-500 overflow-hidden"
       >
-        <div class="max-w-[1500px] w-full mx-auto px-6 md:px-12">
+        <div
+          class="max-w-[1500px] w-full mx-auto px-6 md:px-12"
+          style="perspective: 1200px;"
+        >
           <div
             class="flex flex-col border-t border-[#522218]/20 dark:border-white/20"
           >
@@ -590,41 +611,36 @@ import SplitType from "split-type";
             <h2
               class="font-sans font-light text-[12vw] sm:text-[9vw] xl:text-[80px] leading-[1.1] tracking-tight uppercase footer-stire w-full"
             >
-              <app-split-text
-                text="Ready to stir"
-                splitType="chars"
-                [delay]="40"
-                [duration]="1.2"
-                textAlign="left"
-              ></app-split-text
-              ><br />
-              <div
-                class="flex flex-wrap items-center gap-4 xl:gap-8 min-h-[1.2em]"
-              >
-                <app-split-text
-                  text="something"
-                  splitType="chars"
-                  [delay]="40"
-                  [duration]="1.2"
-                  textAlign="left"
-                ></app-split-text>
-                <button
-                  class="flex items-center gap-3 px-6 py-3 xl:px-8 xl:py-4 rounded-[40px] border border-[#FAF6F0]/30 dark:border-[#522218]/30 hover:bg-[#FAF6F0] hover:text-[#522218] dark:hover:bg-[#522218] dark:hover:text-[#FAF6F0] transition-colors duration-500 font-sans tracking-widest text-[10px] xl:text-xs uppercase whitespace-nowrap mt-2 sm:mt-0 font-medium"
-                >
-                  Get in touch
-                  <mat-icon
-                    class="text-[16px] w-4 h-4 leading-4 flex items-center justify-center"
-                    >arrow_forward</mat-icon
-                  >
-                </button>
+              <div class="overflow-hidden pb-2 -mb-2">
+                <div class="footer-line-text translate-y-[120%] opacity-0">
+                  Ready to stir
+                </div>
               </div>
-              <app-split-text
-                text="great?"
-                splitType="chars"
-                [delay]="40"
-                [duration]="1.2"
-                textAlign="left"
-              ></app-split-text>
+              <div
+                class="flex flex-wrap items-center gap-4 xl:gap-8 min-h-[1.2em] mt-2 xl:mt-4"
+              >
+                <div class="overflow-hidden pb-2 -mb-2">
+                  <div class="footer-line-text translate-y-[120%] opacity-0">
+                    something
+                  </div>
+                </div>
+                <div class="footer-btn-wrapper opacity-0 translate-y-8">
+                  <button
+                    class="flex items-center gap-3 px-6 py-3 xl:px-8 xl:py-4 rounded-[40px] border border-[#FAF6F0]/30 dark:border-[#522218]/30 hover:bg-[#FAF6F0] hover:text-[#522218] dark:hover:bg-[#522218] dark:hover:text-[#FAF6F0] transition-colors duration-500 font-sans tracking-widest text-[10px] xl:text-xs uppercase whitespace-nowrap mt-2 sm:mt-0 font-medium"
+                  >
+                    Get in touch
+                    <mat-icon
+                      class="text-[16px] w-4 h-4 leading-4 flex items-center justify-center"
+                      >arrow_forward</mat-icon
+                    >
+                  </button>
+                </div>
+              </div>
+              <div class="overflow-hidden pb-2 -mb-2 mt-2 xl:mt-4">
+                <div class="footer-line-text translate-y-[120%] opacity-0">
+                  great?
+                </div>
+              </div>
             </h2>
           </div>
 
@@ -823,6 +839,7 @@ import SplitType from "split-type";
 })
 export class HomeComponent implements AfterViewInit, OnDestroy {
   private splits: SplitType[] = [];
+  private cleanupParticles?: () => void;
 
   private platformId = inject(PLATFORM_ID);
   private router = inject(Router);
@@ -974,7 +991,7 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
       loadedImages.push(img);
     });
 
-    const particles: any[] = [];
+    const particles: Particle[] = [];
     const particleCount = width > 768 ? 30 : 15; // Less particles since they are images
 
     for (let i = 0; i < particleCount; i++) {
@@ -1045,7 +1062,7 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
     animateParticles();
 
     // Store cleanup function
-    (this as any).cleanupParticles = () => {
+    this.cleanupParticles = () => {
       window.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("resize", onResize);
       cancelAnimationFrame(animationFrameId);
@@ -1220,6 +1237,17 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
       0,
     );
 
+    // Fade out the initial s
+    galleryTl.to(
+      ".gallery-initial-s",
+      {
+        opacity: 0,
+        duration: 0.4,
+        ease: "power2.out",
+      },
+      0,
+    );
+
     // Show works content
     galleryTl.to(
       ".works-content",
@@ -1270,18 +1298,30 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
       1.2,
     );
 
-    // Scroll the projects up
+    // Scroll the projects up - Parallax effect for columns
+    const gridY = () => {
+      const grid = document.querySelector(".works-grid") as HTMLElement;
+      const col = document.querySelector(".works-right-col") as HTMLElement;
+      if (grid && col) {
+        return -Math.max(0, grid.offsetHeight - col.offsetHeight + 100);
+      }
+      return -500;
+    };
+
     galleryTl.to(
-      ".works-grid",
+      ".work-card:nth-child(odd)",
       {
-        y: () => {
-          const grid = document.querySelector(".works-grid") as HTMLElement;
-          const col = document.querySelector(".works-right-col") as HTMLElement;
-          if (grid && col) {
-            return -Math.max(0, grid.offsetHeight - col.offsetHeight + 100);
-          }
-          return -500;
-        },
+        y: gridY,
+        duration: 2.5,
+        ease: "none",
+      },
+      1.0,
+    );
+
+    galleryTl.to(
+      ".work-card:nth-child(even)",
+      {
+        y: () => (gridY() as number) * 1.2, // Move faster for parallax
         duration: 2.5,
         ease: "none",
       },
@@ -1289,9 +1329,7 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
     );
 
     // Stack animation for About section (shrinks and dims as next section comes up)
-    gsap.to("#about-section", {
-      scale: 0.9,
-      opacity: 0.4,
+    const aboutTl = gsap.timeline({
       scrollTrigger: {
         trigger: "#about-section",
         start: "top top",
@@ -1302,6 +1340,11 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
         scrub: true,
       },
     });
+
+    // The scale and opacity animation should only happen as the gallery section enters
+    aboutTl
+      .to("#about-section", { opacity: 1, duration: 0.6 }) // Do nothing for first 60% of scroll (delay)
+      .to("#about-section", { scale: 0.9, opacity: 0.4, duration: 0.4 }); // Scale down during overlap
 
     // Stack animation for Gallery section entering Services section
     gsap.to(".gallery-wrapper", {
@@ -1316,31 +1359,35 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
       },
     });
 
-    // Fade in animation for Service Items
-    gsap.fromTo(
-      ".service-item",
-      { opacity: 0, y: 40 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 1,
-        stagger: 0.15,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: "#services-section",
-          start: "top 75%",
-          toggleActions: "play none none reverse",
+    // Fade in animation for Service Items - staggered per item
+    gsap.utils.toArray<HTMLElement>(".service-item").forEach((item) => {
+      gsap.fromTo(
+        item,
+        { opacity: 0, y: 100, rotateX: -15, scale: 0.95 },
+        {
+          opacity: 1,
+          y: 0,
+          rotateX: 0,
+          scale: 1,
+          duration: 1.2,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: item,
+            start: "top 85%",
+            toggleActions: "play none none reverse",
+          },
         },
-      },
-    );
+      );
+    });
 
     // Animate the rest of the about items (button, profile image etc)
     gsap.fromTo(
-      ".about-item",
+      [".about-item", ".about-quote-icon"],
       { y: 60, opacity: 0 },
       {
         y: 0,
-        opacity: 1,
+        opacity: (i, target) =>
+          target.classList.contains("about-quote-icon") ? 0.05 : 1,
         duration: 1.2,
         stagger: 0.15,
         ease: "power3.out",
@@ -1375,9 +1422,23 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
     });
 
     footerTl.fromTo(
+      ".footer-line-text",
+      { y: "120%", opacity: 0 },
+      { y: "0%", opacity: 1, duration: 1.2, stagger: 0.15, ease: "power3.out" },
+    );
+
+    footerTl.fromTo(
+      ".footer-btn-wrapper",
+      { opacity: 0, y: 30 },
+      { opacity: 1, y: 0, duration: 1, ease: "power3.out" },
+      "-=0.8",
+    );
+
+    footerTl.fromTo(
       ".footer-links > div",
       { opacity: 0, y: 30 },
       { opacity: 1, y: 0, duration: 0.8, stagger: 0.1, ease: "power3.out" },
+      "-=0.6",
     );
   }
 
@@ -1386,8 +1447,20 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
     this.splits.forEach((s) => s.revert());
     ScrollTrigger.getAll().forEach((t) => t.kill());
 
-    if ((this as any).cleanupParticles) {
-      (this as any).cleanupParticles();
+    if (this.cleanupParticles) {
+      this.cleanupParticles();
     }
   }
+}
+
+interface Particle {
+  x: number;
+  y: number;
+  z: number;
+  size: number;
+  speedX: number;
+  speedY: number;
+  imgIndex: number;
+  rotation: number;
+  rotSpeed: number;
 }
